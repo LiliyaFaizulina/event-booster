@@ -1,0 +1,34 @@
+.eventcards__list {
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.eventcards__item {
+  display: flex;
+  flex-direction: column;
+
+  width: calc((100% - 1 * 20px) / 2);
+
+  @include mq(tablet) {
+    width: calc((100% - 3 * 32px) / 4);
+  }
+
+  @include mq(desktop) {
+    width: calc((100% - 3 * 40px) / 4);
+  }
+}
+
+.eventcards__name {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  color: var(--accent-color);
+
+  @include mq(tablet) {
+    font-size: 16px;
+    line-height: 1.25;
+  }
+}
