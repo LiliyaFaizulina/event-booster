@@ -19,8 +19,16 @@
   line-height: 20px;
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
+  transition: transform var(--animation);
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    color: var(--accent-color);
+  }
 }
 
-.paggination-btn---current {
-  border: 1px solid #dc56c5;
+.pagination-btn---current {
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
 }
