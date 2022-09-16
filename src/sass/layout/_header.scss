@@ -1,0 +1,46 @@
+.header__container {
+    display: flex;
+}
+
+.header__logo {
+    max-width: 100%;
+}
+
+.header__main-title {
+    margin-top: 40px;
+    margin-bottom: 48px;
+
+    font-family: 'Montserrat';
+    text-align: center;
+    font-weight: 900;
+    font-size: 50px;
+    line-height: 1.2;
+
+    width: 100%;
+
+    color: var(--accent-color);
+
+    @include mq(mobile-only) {
+        font-size: 18px;
+        margin-top: 80px;
+        margin-bottom: 10px;
+    }
+
+    @include mq(tablet-only) {
+        font-size: 30px;
+        margin-bottom: 40px;
+    }
+}
+
+.neon-title {
+    text-shadow: 
+    .1vw 0vw .25vw #e297d6, .2vw 0vw .25vw #e297d6, .4vw 0vw .25vw #e297d6, 
+  
+    .1vw 0vw   0vw #dc56c5, .2vw 0vw   0vw #dc56c5, .4vw 0vw   0vw #dc56c5,
+    .1vw 0vw  .1vw #dc56c5, .2vw 0vw  .1vw #dc56c5, .4vw 0vw  .1vw #dc56c5,
+    .1vw 0vw   2vw #dc56c5, .2vw 0vw   2vw #dc56c5, .4vw 0vw   2vw #dc56c5, 
+  
+    .1vw 0vw   1vw #d81ab8, .2vw 0vw   1vw #d81ab8, .4vw 0vw   5vw #d81ab8, 
+    .1vw 0vw   5vw #d81ab8, .2vw 0vw  20vw #d81ab8, .4vw 0vw  10vw #d81ab8,
+    .1vw 0vw  10vw #d81ab8, .2vw 0vw  30vw #d81ab8, .4vw 0vw  10vw #d81ab8;
+  }
