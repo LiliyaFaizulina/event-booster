@@ -1,6 +1,27 @@
 <div class="container">
-    <input type="text" name="search" placeholder="Start searching">
-    <select name="countries" id="countries">
-        <option value="country">Choose country</option>
-    </select>
+  <form class="search__form" action="">
+    <label class="search__label">
+      <input
+        class="search__input input__icon"
+        type="text"
+        name="search"
+        placeholder="Start searching"
+      />
+    </label>
+
+    <label class="search__label">
+      <!-- Choose country -->
+      <select
+        class="search__select search__input"
+        name="countries"
+        id="countries"
+        size="0"
+      >
+        <option class="search__option" value="choose">Choose country</option>
+        <option class="search__option" value="country1">nameCountry1</option>
+        <option class="search__option" value="country2">nameCountry2</option>
+        <option class="search__option" value="country3">nameCountry3</option>
+      </select>
+    </label>
+  </form>
 </div>
