@@ -1,7 +1,4 @@
-import { createMarkupEventsList } from './js/createMarkupEventsList';
-import { EventsAPI } from './js/eventsAPI';
-import { onEventClick } from './js/openModal';
-import { closeModal } from './js/closeModal';
+import { EventsAPI } from './eventsAPI';
 
 const paginationListRef = document.querySelector('.pagination__list');
 

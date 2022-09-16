@@ -5,7 +5,7 @@ export class EventsAPI {
   size = 16;
   page = 0;
 
-  async getEvents(countryCode, keyword) {
+  async getEvents(countryCode = 'PL', keyword) {
     const config = {
       params: {
         apikey: this.key,
