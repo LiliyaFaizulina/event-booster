@@ -32,3 +32,27 @@
     line-height: 1.25;
   }
 }
+
+.eventcards__date {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  color: var(--main-text-color);
+
+  @include mq(tablet) {
+    font-size: 16px;
+    line-height: 1.25;
+  }
+}
+
+.eventcards__location {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--main-text-color);
+
+  @include mq(tablet) {
+    line-height: 1.21;
+  }
+}
