@@ -2,6 +2,21 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  background-color: var(--main-bg-color);
+  background-image: url('../images/background/bg-mobile.jpg');
+  background-size: 320px;
+  background-position-x: 50%;
+  background-repeat: no-repeat;
+
+  @include mq(mobile) {
+    background-image: url('../images/background/bg-tablet.jpg');
+    background-size: 720px;
+  }
+
+  @include mq(desktop) {
+    background-image: url('../images/background/bg.jpg');
+    background-size: 1280px;
+  }
 }
 
 .container {
