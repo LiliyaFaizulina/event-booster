@@ -16,7 +16,7 @@
   background: var(--modal-bg-color);
 
   @include mq(tablet) {
-    overflow-y: hidden;
+    overflow: hidden;
     border-radius: 175px 0px;
     width: 670px;
     height: 648px;
