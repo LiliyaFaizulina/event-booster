@@ -9,13 +9,12 @@ body {
   background-repeat: no-repeat;
 
   @include mq(mobile) {
-    background-image: url('../images/background/bg-tablet.jpg');
-    background-size: 720px;
+    background-image: url('../images/background/background-tablet.jpg');
+    background-size: 100%;
   }
 
   @include mq(desktop) {
-    background-image: url('../images/background/bg.jpg');
-    background-size: 1280px;
+    background-image: url('../images/background/background@2x.jpg');
   }
 }
 

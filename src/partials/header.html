@@ -1,10 +1,33 @@
 <header class="header">
   <div class="header__container container">
-    <img
-      class="header__logo"
-      src="./images/header-logo/logo-desktop.png"
-      alt="logo"
-    />
-    <h1 class="header__main-title">FIND BEST EVENTS AROUND THE WORLD</h1>
+      <a href="/">
+        <picture>
+            <source
+            media="(min-width: 1280px)"
+            srcset="./images/header-logo/logo-desktop.png"
+            type="image/png"
+            />
+            <source
+            media="(min-width: 768px)"
+            srcset="./images/header-logo/logo-tablet.png"
+            type="image/png"
+          />
+          <source
+            media="(min-width: 320px)"
+            srcset="./images/header-logo/logo-mobile.png"
+            type="image/png"
+          />
+          <img src="./images/header-logo/header-logo.png"
+          class="header__logo"
+          alt="logo"
+          loading="lazy" />
+        </picture>
+      </a>
+            <div class="neon__container">
+              <h1 class="header__main-title neon__title">
+                  <span class="neon__title-1">FIND BEST EVENTS<br>
+                  <span class="neon__title-2">AROUND THE WORLD</span>
+                </h1>
+            </div>
   </div>
 </header>
