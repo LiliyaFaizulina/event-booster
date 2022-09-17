@@ -1,3 +1,10 @@
-import { eventsApi } from './eventsAPI';
+import { EventsAPI } from './eventsAPI';
 
-export function onEventClick(e) {}
+const infoObj = new EventsAPI();
+
+export function addToModalContent(id) {
+  console.log(id);
+  infoObj.getEvent(id).then(response => {
+    console.log(response.data._embedded.events[0]);
+  });
+}
