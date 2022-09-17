@@ -15,8 +15,6 @@ window.onload = function () {
 
 const paginationListRef = document.querySelector('.pagination__list');
 
-const eventsApi = new EventsAPI();
-
-renderPagination(50);
+renderPagination(15);
 
 paginationListRef.addEventListener('click', onPaginationClick);

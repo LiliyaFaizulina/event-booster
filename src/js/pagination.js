@@ -17,14 +17,18 @@ function createMarkupPagination(totalPages) {
   if (totalPages > 1) {
     for (let i = 2; i <= totalPages; i += 1) {
       markup.push(createPagElem(i));
-      if (i > 5) {
-        markup.push(`<li class="pagination__item rest">...</li>`);
+      if (i > 4) {
+        if (totalPages > 5) {
+          markup.push(`<li class="pagination__item rest">...</li>`);
+        } else {
+          markup.push(createPagElem(totalPages));
+        }
         break;
       }
     }
   }
-  if (totalPages > 7) {
-    markup.push(createPagElem(totalPages - 1));
+  if (totalPages > 6) {
+    markup.push(createPagElem(totalPages));
   }
   return markup.join('');
 }
@@ -39,7 +43,9 @@ export function onPaginationClick(e) {
   }
   cardListRef.innerHTML = '';
 
-  [...e.currentTarget.children]
+  const pagBtns = [...e.currentTarget.children];
+
+  pagBtns
     .find(elem => elem.classList.contains('js-current-btn'))
     .classList.remove('js-current-btn');
 
@@ -48,9 +54,31 @@ export function onPaginationClick(e) {
   currentLi.classList.add('js-current-btn');
   const currentBtnText = Number(currentBtn.textContent);
 
-  if (currentLi.nextElementSibling.classList.contains('rest')) {
+  if (
+    currentLi.nextElementSibling &&
+    currentLi.nextElementSibling.classList.contains('rest')
+  ) {
     currentLi.insertAdjacentHTML('afterend', createPagElem(currentBtnText + 1));
     paginationListRef.firstElementChild.remove();
+
+    if (currentBtnText === paginationListRef.lastElementChild.textContent - 2) {
+      paginationListRef.lastElementChild.previousElementSibling.remove();
+    }
+  }
+
+  if (!currentLi.previousElementSibling && currentBtnText !== 1) {
+    currentLi.insertAdjacentHTML(
+      'beforebegin',
+      createPagElem(currentBtnText - 1)
+    );
+    pagBtns[5].remove();
+
+    if (!pagBtns[pagBtns.length - 2].classList.contains('rest')) {
+      paginationListRef.lastElementChild.insertAdjacentHTML(
+        'beforebegin',
+        `<li class="pagination__item rest">...</li>`
+      );
+    }
   }
 
   eventsApi.setPage(currentBtnText - 1);
