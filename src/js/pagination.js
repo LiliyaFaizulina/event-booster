@@ -10,8 +10,8 @@ paginationListRef.addEventListener('click', onPaginationClick);
 
 function createMarkupPagination(totalPages) {
   const markup = [
-    `<li class="pagination__item">
-            <button class="pagination__btn js-current-btn" type="button">1</button>
+    `<li class="pagination__item  js-current-btn">
+            <button class="pagination__btn" type="button">1</button>
           </li>`,
   ];
   if (totalPages > 1) {
@@ -29,17 +29,15 @@ function createMarkupPagination(totalPages) {
   return markup.join('');
 }
 
-function renderPagination(totalPages) {
+export function renderPagination(totalPages) {
   paginationListRef.innerHTML = createMarkupPagination(totalPages);
 }
 
-function onPaginationClick(e) {
+export function onPaginationClick(e) {
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
-  // очистить контейнер;
   cardListRef.innerHTML = '';
-  // запустить спинер;
 
   [...e.currentTarget.children]
     .find(elem => elem.classList.contains('js-current-btn'))
@@ -52,19 +50,23 @@ function onPaginationClick(e) {
 
   if (currentLi.nextElementSibling.classList.contains('rest')) {
     currentLi.insertAdjacentHTML('afterend', createPagElem(currentBtnText + 1));
+    paginationListRef.firstElementChild.remove();
   }
 
   eventsApi.setPage(currentBtnText - 1);
 
-  eventsApi.getEvents().then(response => {
-    console.log(response.data);
-    // функция рендера картинок;
-    cardListRef.insertAdjacentHTML(
-      'beforeend',
-      createMarkupEventsList(response.data)
-    );
-    // остановка спинера;
-  });
+  eventsApi
+    .getEvents()
+    .then(response => {
+      cardListRef.insertAdjacentHTML(
+        'beforeend',
+        createMarkupEventsList(response.data._embedded.events)
+      );
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+  // остановка спинера;
 }
 
 function createPagElem(num) {
