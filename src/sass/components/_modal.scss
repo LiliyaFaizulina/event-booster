@@ -87,10 +87,15 @@
 }
 
 .modal__big-pic {
-    width: 100%;
+    @include mq(tablet) {
+    width: 249px;
     height: 100%;
     object-fit: fill; 
-    object-position: 50% 50%;   
+    object-position: 50% 50%;
+}   
+    @include mq(desktop) {
+    width: 427px;
+}
 }
 
 .modal__list {

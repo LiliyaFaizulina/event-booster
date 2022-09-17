@@ -15,6 +15,7 @@ const secondPriceText = document.querySelector(
   '.js-second-price .js-price-text'
 );
 const buyTicketBtn = document.querySelectorAll('.modal__list-btn');
+const moreAboutEvent = document.querySelector('.moreinfo-link');
 
 export function addToModalContent(id) {
   infoObj.getEvent(id).then(response => {
@@ -68,6 +69,7 @@ export function addToModalContent(id) {
     optionPriceInfo();
 
     buyTicketBtn.forEach(btn => (btn.href = url));
+    moreAboutEvent.href = `https://www.google.com/search?q=${eventFace.textContent}+${city.name}+${dates.start.localDate}`;
     //infoObj.getEvents().then(r => console.log(r));
   });
 }
