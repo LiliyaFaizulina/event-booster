@@ -7,7 +7,7 @@
   right: 0;
   bottom: 0;
   /* фоновый цвет элемента */
-  background: #e0e0e0;
+  background: rgba(0, 0, 0, 0);
   /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
   z-index: 1001;
 }
@@ -28,7 +28,7 @@
   position: absolute;
   display: inline-block;
   top: 0;
-  background-color: #337ab7;
+  background-color: var(--accent-color);
   border-radius: 100%;
   width: 35px;
   height: 35px;
