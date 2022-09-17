@@ -2,6 +2,15 @@ import { createMarkupEventsList } from './js/createMarkupEventsList';
 import { EventsAPI } from './js/eventsAPI';
 import { onEventClick } from './js/openModal';
 import { closeModal } from './js/closeModal';
+import * as module from './js/preloader';
+
+window.onload = function () {
+  document.body.classList.add('loaded_hiding');
+  window.setTimeout(function () {
+    document.body.classList.add('loaded');
+    document.body.classList.remove('loaded_hiding');
+  }, 500);
+};
 
 const paginationListRef = document.querySelector('.pagination__list');
 
