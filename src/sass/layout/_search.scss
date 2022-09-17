@@ -40,6 +40,7 @@
   padding-left: 32px;
   padding-right: 46px;
   color: var(--main-text-color);
+  text-shadow: 0px 0px 5px #000000;
   background-color: var(--search-bg-color);
 
   backdrop-filter: blur(10px);
@@ -56,11 +57,12 @@
 }
 
 .search__input::placeholder {
-  color: var(--footer-text);
+  color: var(--search-text-color);
 }
 
 .search__select {
-  color: var(--footer-text);
+  color: var(--search-text-color);
+  text-shadow: 0px 0px 5px #000000;
   text-align: left;
   cursor: pointer;
 }
@@ -123,6 +125,8 @@
 .search__option {
   font-size: 16px;
   color: var(--search-text-color);
+  text-shadow: 0px 0px 5px #000000;
+
   padding: 1px 50px 1px 30px;
 
   cursor: pointer;
