@@ -60,7 +60,7 @@ export function onPaginationClick(e) {
     .then(response => {
       cardListRef.insertAdjacentHTML(
         'beforeend',
-        createMarkupEventsList(response.data._embedded)
+        createMarkupEventsList(response.data._embedded.events)
       );
     })
     .catch(err => {

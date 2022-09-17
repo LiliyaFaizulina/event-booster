@@ -1,4 +1,4 @@
-export function createMarkupEventsList({ events }) {
+export function createMarkupEventsList(events) {
   return events.reduce(
     (acc, { id, images, name, dates, _embedded: { venues } }) => {
       const {
