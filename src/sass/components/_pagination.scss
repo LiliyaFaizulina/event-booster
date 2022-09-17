@@ -1,0 +1,34 @@
+.pagination {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.pagination__list {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.pagination__btn {
+  padding: 5px 0px;
+  width: 30px;
+  border: none;
+  border-radius: 10px 0px;
+
+  font-size: 16px;
+  line-height: 20px;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  transition: transform var(--animation);
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    color: var(--accent-color);
+  }
+}
+
+.js-current-btn .pagination__btn {
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+}
