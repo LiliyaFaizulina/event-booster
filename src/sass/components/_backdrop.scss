@@ -25,7 +25,5 @@
   opacity: 0;
 }
 .no-scroll {
-  @include mq(table) {
-    overflow: hidden;
-  }
+  overflow: hidden;
 }

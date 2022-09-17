@@ -1,12 +1,12 @@
 .eventcards {
-  margin-top: 56px;
+  padding-top: 56px;
 
   @include mq(tablet) {
-    margin-top: 80px;
+    padding-top: 80px;
   }
 
   @include mq(desktop) {
-    margin-top: 120px;
+    padding-top: 120px;
   }
 }
 
@@ -23,8 +23,6 @@
 
 .eventcards__item {
   position: relative;
-  display: flex;
-  flex-direction: column;
   padding-top: 9px;
   padding-right: 10px;
   width: 130px;
