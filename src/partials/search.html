@@ -8,36 +8,22 @@
         placeholder="Start searching"
       />
     </label>
-
-    <!-- <label class="search__label input__icon--arrow">
-      <select
-        class="search__select search__input"
-        name="countries"
-        id="countries"
-        size="0"
-      >
-        <option class="search__option" value="choose">Choose country</option>
-        <option class="search__option" value="country1">nameCountry1</option>
-        <option class="search__option" value="country2">nameCountry2</option>
-        <option class="search__option" value="country3">nameCountry3</option>
-      </select>
-    </label> -->
     <div class="search__label input__icon--arrow">
-      <div class="dropdown">
-        <button class="search__select search__input">Choose country</button>
-        <ul class="search__list">
-          <li class="search__option" data-value="country1">nameCountry1</li>
-          <li class="search__option" data-value="country2">nameCountry2</li>
-          <li class="search__option" data-value="country3">nameCountry3</li>
-          <li class="search__option" data-value="country4">nameCountry4</li>
-        </ul>
-        <input
-          class="option__input--hidden"
-          type="text"
-          name="select-country"
-          value=""
-        />
-      </div>
+      <button type="button" class="search__select search__input">
+        Choose country
+      </button>
+      <ul class="search__list">
+        <li class="search__option" data-value="country1">nameCountry1</li>
+        <li class="search__option" data-value="country2">nameCountry2</li>
+        <li class="search__option" data-value="country3">nameCountry3</li>
+        <li class="search__option" data-value="country4">nameCountry4</li>
+      </ul>
+      <input
+        class="option__input--hidden"
+        type="text"
+        name="select-country"
+        value=""
+      />
     </div>
   </form>
 </div>

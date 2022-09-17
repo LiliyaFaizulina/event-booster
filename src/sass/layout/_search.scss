@@ -39,7 +39,7 @@
   height: 40px;
   padding-left: 32px;
   padding-right: 46px;
-
+  color: var(--main-text-color);
   background-color: var(--search-bg-color);
 
   backdrop-filter: blur(10px);
@@ -63,6 +63,10 @@
   color: var(--footer-text);
   text-align: left;
   cursor: pointer;
+}
+
+.search__select--selected {
+  color: var(--main-text-color);
 }
 
 .search__select--active {
@@ -114,10 +118,6 @@
 
 .search__list--visible {
   display: block;
-}
-
-.dropdown {
-  position: relative;
 }
 
 .search__option {

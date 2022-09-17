@@ -21,6 +21,7 @@ searchItemsEl.forEach(searchItem => {
     btnSelectEl.textContent = this.textContent;
     searchListEl.classList.remove('search__list--visible');
     btnSelectEl.classList.remove('search__select--active');
+    btnSelectEl.classList.add('search__select--selected');
     inputHiddenEl.value = this.dataset.value;
   }
 });
