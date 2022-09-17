@@ -1,6 +1,8 @@
 import { EventsAPI } from './eventsAPI';
+import { createMarkupEventsList } from './createMarkupEventsList';
 
 const paginationListRef = document.querySelector('.pagination__list');
+const cardListRef = document.querySelector('.eventcards__list');
 
 const eventsApi = new EventsAPI();
 
@@ -35,8 +37,8 @@ function onPaginationClick(e) {
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
-
   // очистить контейнер;
+  cardListRef.innerHTML = '';
   // запустить спинер;
 
   [...e.currentTarget.children]
@@ -57,6 +59,10 @@ function onPaginationClick(e) {
   eventsApi.getEvents().then(response => {
     console.log(response.data);
     // функция рендера картинок;
+    cardListRef.insertAdjacentHTML(
+      'beforeend',
+      createMarkupEventsList(response.data)
+    );
     // остановка спинера;
   });
 }
