@@ -1,5 +1,9 @@
 import refs from './refs';
 
+export function renderEventsList(array) {
+  refs.eventsList.innerHTML = createMarkupEventsList(array);
+}
+
 function createMarkupEventsList(events) {
   return events.reduce(
     (acc, { id, images, name, dates, _embedded: { venues } }) => {
@@ -9,7 +13,7 @@ function createMarkupEventsList(events) {
       } = venues[0];
       return (
         acc +
-        `<li class="eventcards__item"  id="${id}">
+        `<li class="eventcards__item js-anim"  id="${id}">
         <a href="#" class="eventcards__link">
           <div class="eventcards__thumb">
             <img
@@ -37,8 +41,4 @@ function createMarkupEventsList(events) {
     },
     ''
   );
-}
-
-export function renderEventsList(array) {
-  refs.cardList.innerHTML = createMarkupEventsList(array);
 }

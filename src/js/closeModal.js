@@ -1,21 +1,12 @@
 import { addToModalContent } from './openModal';
-const modalBtnOpen = document.querySelector('.js-open-modal-team');
-const backdrop = document.querySelector('.js-backdrop');
-const backdropModal = document.querySelector('.js-modal-backdrop');
-const elementModal = document.querySelector('.team-modal');
-const modalCloseBtn = document.querySelector('.modal-button');
-const eventModalCloseBtn = document.querySelector('.close-button');
-const eventsList = document.querySelector('.eventcards__list');
+import refs from './refs';
 
-//! Открытие модалки
-modalBtnOpen.addEventListener('click', function (e) {
-  document.body.classList.add('no-scroll');
-  elementModal.classList.remove('visually-hidden');
-  backdrop.classList.remove('visually-hidden');
-  window.addEventListener('keydown', onModalCloseKey);
-});
+refs.teamModalOpenBtn.addEventListener('click', onTeamBtnClick);
+refs.teamModalBackdrop.addEventListener('click', closeModal);
 
-eventsList.addEventListener('click', onEventClick);
+refs.eventsList.addEventListener('click', onEventClick);
+refs.eventModalBackdrop.addEventListener('click', closeModal);
+
 //! Открывает модалку карточки
 function onEventClick(e) {
   const card = e.target.closest('li');
@@ -23,33 +14,27 @@ function onEventClick(e) {
     return;
   }
   document.body.classList.add('no-scroll');
-  backdropModal.classList.remove('visually-hidden');
-  window.addEventListener('keydown', onModalCloseKey);
-  // Запустить функцию, которая добавляет данные в разметку
-  addToModalContent(/*'Z698xZQpZaAD6');*/ card.attributes.id.textContent);
+  refs.eventModalBackdrop.classList.remove('visually-hidden');
+  window.addEventListener('keydown', closeModal);
+
+  addToModalContent(card.attributes.id.textContent);
 }
 
-function onModalCloseKey(e) {
-  if (e.key === 'Escape') {
-    remove(e);
-    closeBtnClick(e);
-    window.removeEventListener('keydown', onModalCloseKey);
+function onTeamBtnClick() {
+  document.body.classList.add('no-scroll');
+  refs.teamModalBackdrop.classList.remove('visually-hidden');
+  window.addEventListener('keydown', closeModal);
+}
+
+function closeModal(e) {
+  if (
+    e.target.classList.contains('backdrop') ||
+    e.target.nodeName === 'BUTTON' ||
+    e.key === 'Escape'
+  ) {
+    document.body.classList.remove('no-scroll');
+    refs.eventModalBackdrop.classList.add('visually-hidden');
+    refs.teamModalBackdrop.classList.add('visually-hidden');
+    window.removeEventListener('keydown', closeModal);
   }
-}
-
-modalCloseBtn.addEventListener('click', remove);
-eventModalCloseBtn.addEventListener('click', closeBtnClick);
-
-backdrop.addEventListener('click', remove);
-backdropModal.addEventListener('click', closeBtnClick);
-
-function remove() {
-  document.body.classList.remove('no-scroll');
-  elementModal.classList.add('visually-hidden');
-  backdrop.classList.add('visually-hidden');
-}
-
-function closeBtnClick() {
-  document.body.classList.remove('no-scroll');
-  backdropModal.classList.add('visually-hidden');
 }

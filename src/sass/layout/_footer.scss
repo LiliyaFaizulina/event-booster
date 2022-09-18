@@ -2,12 +2,13 @@
   content: '\2764';
   color: red;
 }
+
 .footer {
   display: flex;
 
   justify-content: center;
   align-items: baseline;
-
+  background: #0d0d0d;
   @include mq(mobile) {
     flex-wrap: wrap;
   }

@@ -1,75 +1,141 @@
 import { EventsAPI } from './eventsAPI';
+import refs from './refs';
 
 const infoObj = new EventsAPI();
-const smallPic = document.querySelector('.modal__small-pic');
-const poster = document.querySelector('.modal__big-pic');
-const eventInfo = document.querySelector('.js-info');
-const eventTimedate = document.querySelector('.js-when');
-const eventPointPlace = document.querySelector('.js-where');
-const eventPointPlaceAddress = document.querySelector('.js-where-place');
-const eventFace = document.querySelector('.js-who');
-const firstPriceInfo = document.querySelector('.js-first-price');
-const firstPriceText = document.querySelector('.js-first-price .js-price-text');
-const secondPriceItem = document.querySelector('.js-second-priceItem');
-const secondPriceText = document.querySelector(
-  '.js-second-price .js-price-text'
-);
-const buyTicketBtn = document.querySelectorAll('.modal__list-btn');
-const moreAboutEvent = document.querySelector('.moreinfo-link');
 
 export function addToModalContent(id) {
   infoObj.getEvent(id).then(response => {
-    //console.log(response.data._embedded.events[0]);
-    const { images, name, dates, _embedded, priceRanges, url } =
+    console.log(response.data._embedded.events[0]);
+    const { images, name, info, dates, _embedded, priceRanges, url } =
       response.data._embedded.events[0];
-    smallPic.src = images[8].url;
-    poster.src = images[8].url;
-    eventInfo.textContent = name;
-    eventTimedate.textContent = `${
-      dates.start.localDate
-    }, ${dates.start.localTime.slice(0, 5)}, (${dates.timezone})`;
-    const { address, city, country } = _embedded.venues[0];
-    eventPointPlace.textContent = `${city.name}, ${country.name}, `;
-    eventPointPlaceAddress.textContent = `${address.line1}`;
-    eventFace.textContent = _embedded.attractions.map(e => e.name).join(', ');
+    const { address, city, country, location } = _embedded.venues[0];
+    const posterBestSize = images.filter(
+      image => image.ratio === '3_2' || image.ratio === '4_3'
+    );
+    const poster = posterBestSize.find(
+      image => image.height === Math.max(...posterBestSize.map(e => e.height))
+    ).url;
 
-    function shortPriceInfo() {
-      if (priceRanges) {
-        for (const { type, currency, min, max } of priceRanges) {
-          if (type === 'standard' && min === max) {
-            return (firstPriceText.textContent = `${type} ${
-              min || max
-            } ${currency}`.toUpperCase());
-          } else if (type === 'standard') {
-            return (firstPriceText.textContent =
-              `${type} ${min}-${max} ${currency}`.toUpperCase());
-          }
+    const eventTimedate = `${dates.start.localDate} ${
+      dates.start.localTime ? dates.start.localTime.slice(0, 5) : ''
+    } ${dates.timezone ? dates.timezone : ''}`;
+    const eventPointPlace = `${city.name}, ${country.name}, ${
+      address.line1 ? address.line1 : ''
+    }`;
+    const eventMapPoint = `https://www.google.com/maps/search/${location.latitude}+${location.longitude}`;
+    const eventFace = _embedded.attractions.map(e => e.name).join(', ');
+    const moreAboutEvent = `https://www.google.com/search?q=${eventFace}+${city.name}+${dates.start.localDate}`;
+
+    let firstPriceText = '';
+    let secondPriceText = '';
+    let hiddenClass = '';
+
+    if (priceRanges) {
+      priceRanges.forEach(({ type, currency, min, max }) => {
+        if (type === 'standard' && min === max) {
+          firstPriceText = `${type} ${min || max} ${currency}`.toUpperCase();
+        } else if (type === 'standard') {
+          firstPriceText = `${type} ${min}-${max} ${currency}`.toUpperCase();
+        } else if (type === 'VIP' && min === max) {
+          secondPriceText = `${type} ${min || max} ${currency}`.toUpperCase();
+        } else if (type === 'VIP') {
+          secondPriceText = `${type} ${min}-${max} ${currency}`.toUpperCase();
+        } else {
+          hiddenClass = 'visually-hidden';
         }
-      }
-      return (firstPriceInfo.textContent = 'Currently price info is absent');
+      });
+    } else {
+      firstPriceText =
+        'Currently price info is absent. Click "Buy tickets" for more information';
+      hiddenClass = 'visually-hidden';
     }
-
-    function optionPriceInfo() {
-      if (priceRanges) {
-        for (const { type, currency, min, max } of priceRanges) {
-          if (type === 'VIP' && min === max) {
-            return (secondPriceText.textContent = `${type} ${
-              min || max
-            } ${currency}`.toUpperCase());
-          } else if (type === 'VIP') {
-            return (firstPriceText.textContent =
-              `${type} ${min}-${max} ${currency}`.toUpperCase());
-          }
-        }
-      }
-      secondPriceItem.classList.add('visually-hidden');
-    }
-
-    shortPriceInfo();
-    optionPriceInfo();
-
-    buyTicketBtn.forEach(btn => (btn.href = url));
-    moreAboutEvent.href = `https://www.google.com/search?q=${eventFace.textContent}+${city.name}+${dates.start.localDate}`;
-    //infoObj.getEvents().then(r => console.log(r));
+    document.querySelector('.js-event-modal').innerHTML = modalMarkup(
+      poster,
+      info,
+      name,
+      eventTimedate,
+      eventMapPoint,
+      eventPointPlace,
+      eventFace,
+      firstPriceText,
+      url,
+      secondPriceText,
+      moreAboutEvent,
+      hiddenClass
+    );
   });
+}
+
+function modalMarkup(
+  poster,
+  info,
+  name,
+  eventTimedate,
+  eventMapPoint,
+  eventPointPlace,
+  eventFace,
+  firstPriceText,
+  url,
+  secondPriceText,
+  moreAboutEvent,
+  hiddenClass
+) {
+  const markup = `<img src="${poster}" alt="small-pic" class="modal__small-pic">
+        <div class="modal__list">
+            <div class="modal__card-poster">
+                <img src="${poster}" alt="big-pic" class="modal__big-pic">
+            </div>
+            <div class="modal__description">
+                <ul>
+                    <li class="modal__list-info">
+                        <h3 class="modal__item-title">INFO</h3>
+                        <p class="modal__item-text js-info">${
+                          info ? info : name
+                        }</p>
+                    </li>
+                    <li class="modal__list-info">
+                        <h3 class="modal__item-title">WHEN</h3>
+                        <p class="modal__item-text js-when">${eventTimedate}</p>
+                    </li>
+                    <li class="modal__list-info">
+                        <h3 class="modal__item-title">WHERE</h3>
+                        <a class="modal__map-point" href="${eventMapPoint}" target="_blanc">
+                            <p class="modal__item-text">
+                            <svg class="modal__icon-location" width="30">
+                                <use href="./images/svg/sprite.svg#icon-location2"></use>
+                            </svg><span class="js-where">${eventPointPlace}</span></p></a>                        
+                    </li>
+                    <li class="modal__list-info">
+                        <h3 class="modal__item-title">WHO</h3>
+                        <p class="modal__item-text js-who">${eventFace}</p>
+                    </li>
+                    <li class="modal__list-info">
+                        <h3 class="modal__item-title">PRICES</h3>
+                        <ul class="modal__price-list">
+                            <li class="modal__price-item">
+                                <p class="modal__item-text js-first-price">
+                                        <svg class="modal__icon-code" width="30">
+                                            <use href="./images/svg/sprite.svg#ic_ticket"></use>
+                                        </svg>
+                                    <span class="js-price-text">${firstPriceText}</span>
+                                </p>
+                                <a class="modal__list-btn" href="${url}" target="_blanc">BUY TICKETS</a>
+                            </li>
+                            <li class="modal__price-item js-second-priceItem ${hiddenClass}">
+                                <p class="modal__item-text js-second-price">
+                                    <svg class="modal__icon-code" width="30">
+                                            <use href="./images/svg/sprite.svg#ic_ticket"></use>
+                                        </svg>
+                                    <span class="js-price-text">${secondPriceText}</span>
+                                </p>
+                                <a class="modal__list-btn" href="${url}" target="_blanc">BUY TICKETS</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a class="moreinfo-link" target="_blank" href="${moreAboutEvent}">MORE ABOUT THIS
+            EVENT</a>`;
+  return markup;
 }

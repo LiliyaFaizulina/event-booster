@@ -174,6 +174,18 @@
         margin-right: 16px;}
   }
 
+  .modal__icon-location {
+      height: 16px;
+      width: 24px;
+      margin-right: 3px;
+      
+      @include mq(desktop) {
+          height: 16px;
+          width: 29px;
+          margin-right: 6px;
+      }
+  }
+
   .modal__list-btn {
     padding: 10px 19px;
     margin: 16px auto;
@@ -249,5 +261,16 @@
             &:focus,
             &:hover {
                 transform: scale(1.1);
+            }
+    }
+
+    .modal__map-point .modal__item-text {
+        transform: scale(1);
+        
+        transition: transform var(--animation);
+        
+            &:focus,
+            &:hover {
+                transform: scale(1.05);
             }
     }
