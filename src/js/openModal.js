@@ -1,21 +1,7 @@
 import { EventsAPI } from './eventsAPI';
+import refs from './refs';
 
 const infoObj = new EventsAPI();
-const smallPic = document.querySelector('.modal__small-pic');
-const poster = document.querySelector('.modal__big-pic');
-const eventInfo = document.querySelector('.js-info');
-const eventTimedate = document.querySelector('.js-when');
-const eventPointPlace = document.querySelector('.js-where');
-const eventMapPoint = document.querySelector('.modal__map-point');
-const eventFace = document.querySelector('.js-who');
-const firstPriceInfo = document.querySelector('.js-first-price');
-const firstPriceText = document.querySelector('.js-first-price .js-price-text');
-const secondPriceItem = document.querySelector('.js-second-priceItem');
-const secondPriceText = document.querySelector(
-  '.js-second-price .js-price-text'
-);
-const buyTicketBtn = document.querySelectorAll('.modal__list-btn');
-const moreAboutEvent = document.querySelector('.moreinfo-link');
 
 export function addToModalContent(id) {
   infoObj.getEvent(id).then(response => {
@@ -26,7 +12,7 @@ export function addToModalContent(id) {
     const posterBestSize = images.filter(
       image => image.ratio === '3_2' || image.ratio === '4_3'
     );
-    poster.src = posterBestSize.find(
+    refs.poster.src = posterBestSize.find(
       image => image.height === Math.max(...posterBestSize.map(e => e.height))
     ).url;
 
