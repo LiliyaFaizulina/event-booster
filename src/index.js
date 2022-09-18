@@ -35,8 +35,8 @@ function onPaginationClick(e) {
     .getEvents()
     .then(response => {
       renderEventsList(response.data._embedded.events);
-
-      onScrollTracking(); //отслеживание скролла
+      //отслеживание скролла
+      onScrollTracking();
       // остановка спинера;
     })
     .catch(err => {
