@@ -26,7 +26,7 @@ function onEventClick(e) {
   backdropModal.classList.remove('visually-hidden');
   window.addEventListener('keydown', onModalCloseKey);
   // Запустить функцию, которая добавляет данные в разметку
-  addToModalContent(card.attributes.id.textContent);
+  addToModalContent(/*'Z698xZQpZaAD6');*/ card.attributes.id.textContent);
 }
 
 function onModalCloseKey(e) {
