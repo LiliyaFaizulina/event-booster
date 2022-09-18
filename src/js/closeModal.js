@@ -2,12 +2,10 @@ import { addToModalContent } from './openModal';
 import refs from './refs';
 
 refs.teamModalOpenBtn.addEventListener('click', onTeamBtnClick);
-refs.teamModalCloseBtn.addEventListener('click', remove);
-refs.teamModalBackdrop.addEventListener('click', remove);
+refs.teamModalBackdrop.addEventListener('click', closeModal);
 
-refs.eventModalCloseBtn.addEventListener('click', closeBtnClick);
-refs.eventModalBackdrop.addEventListener('click', closeBtnClick);
 refs.eventsList.addEventListener('click', onEventClick);
+refs.eventModalBackdrop.addEventListener('click', closeModal);
 
 //! Открывает модалку карточки
 function onEventClick(e) {
@@ -17,31 +15,26 @@ function onEventClick(e) {
   }
   document.body.classList.add('no-scroll');
   refs.eventModalBackdrop.classList.remove('visually-hidden');
-  window.addEventListener('keydown', onModalCloseKey);
+  window.addEventListener('keydown', closeModal);
 
   addToModalContent(card.attributes.id.textContent);
 }
 
-function onModalCloseKey(e) {
-  if (e.key === 'Escape') {
-    remove(e);
-    closeBtnClick(e);
-    window.removeEventListener('keydown', onModalCloseKey);
-  }
-}
-
-function remove() {
-  document.body.classList.remove('no-scroll');
-  refs.teamModalBackdrop.classList.add('visually-hidden');
-}
-
-function closeBtnClick() {
-  document.body.classList.remove('no-scroll');
-  refs.eventModalBackdrop.classList.add('visually-hidden');
-}
-
-function onTeamBtnClick(e) {
+function onTeamBtnClick() {
   document.body.classList.add('no-scroll');
   refs.teamModalBackdrop.classList.remove('visually-hidden');
-  window.addEventListener('keydown', onModalCloseKey);
+  window.addEventListener('keydown', closeModal);
+}
+
+function closeModal(e) {
+  if (
+    e.target.classList.contains('backdrop') ||
+    e.target.nodeName === 'BUTTON' ||
+    e.key === 'Escape'
+  ) {
+    document.body.classList.remove('no-scroll');
+    refs.eventModalBackdrop.classList.add('visually-hidden');
+    refs.teamModalBackdrop.classList.add('visually-hidden');
+    window.removeEventListener('keydown', closeModal);
+  }
 }
