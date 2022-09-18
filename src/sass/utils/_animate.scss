@@ -1,0 +1,19 @@
+.eventcards__item.js-anim {
+  transition: all 0.3s ease 0.5s;
+  opacity: 1;
+  transform: scale(0.5);
+}
+.eventcards__item._active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.footer.js-anim {
+  transition: all 0.3s ease 0.5s;
+  opacity: 0;
+  transform: translate(0px, -120%);
+}
+.footer._active {
+  opacity: 1;
+  transform: translate(0px, 0px);
+}
