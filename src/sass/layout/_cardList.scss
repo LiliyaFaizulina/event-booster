@@ -11,10 +11,10 @@
 }
 
 .eventcards__list {
-  gap: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
 
   @include mq(tablet) {
     gap: 28px;
@@ -22,22 +22,26 @@
 }
 
 .eventcards__item {
-  position: relative;
   padding-top: 9px;
-  padding-right: 10px;
+  // padding-right: 10px;
+  background-image: url('../images/cardlist/decoration-s.png');
+  background-repeat: no-repeat;
+  background-position-x: right 10px;
 
   @include mq(tablet) {
     padding-top: 10px;
     padding-right: 11px;
+    background-image: url('../images/cardlist/decoration-m.png');
   }
 
   @include mq(desktop) {
     padding-top: 19px;
     padding-right: 21px;
+    background-image: url('../images/cardlist/decoration-l.png');
   }
 }
 
-.thumb {
+.eventcards__thumb {
   width: 120px;
   height: 151px;
   border-radius: 50px 0px;
@@ -54,34 +58,50 @@
 }
 
 .eventcards__img {
+  display: block;
+  object-fit: cover;
   width: 100%;
   height: 100%;
   border-radius: 50px 0px;
 }
 
-.eventcards__decoration {
-  position: absolute;
-  width: 102px;
-  height: 95px;
-  right: 0px;
-  top: 0px;
-  border: 1px solid rgba(220, 86, 197, 0.3);
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 50px 0px;
+// .eventcards__decoration {
+//   position: absolute;
+//   width: 102px;
+//   height: 95px;
+//   right: 0px;
+//   top: 0px;
+//   border: 1px solid rgba(220, 86, 197, 0.3);
+//   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+//   border-radius: 50px 0px;
 
-  @include mq(tablet) {
-    width: 120px;
-    height: 112px;
-  }
-  @include mq(desktop) {
-    width: 227px;
-    height: 212px;
-  }
-}
+//   @include mq(tablet) {
+//     width: 120px;
+//     height: 112px;
+//   }
+//   @include mq(desktop) {
+//     width: 227px;
+//     height: 212px;
+//   }
+// }
 
 .eventcards__content {
   margin-top: 8px;
   text-align: center;
+  width: 130px;
+  height: 79px;
+  padding: 8px;
+  margin-bottom: 32px;
+
+  @include mq(tablet) {
+    width: 152px;
+    height: 93px;
+  }
+
+  @include mq(desktop) {
+    width: 288px;
+    height: 107px;
+  }
 }
 
 .eventcards__name {
@@ -112,24 +132,44 @@
   }
 }
 
+// .eventcards__location {
+//   padding-top: 20px;
+//   background-image: url('../images/vector.png');
+//   background-repeat: no-repeat;
+// }
+
 .eventcards__location {
   font-weight: 600;
   font-size: 12px;
   line-height: 1.25;
   text-align: center;
   color: var(--main-text-color);
+  background-image: url('../images/cardlist/vector.png');
+  background-repeat: no-repeat;
+  padding-left: 5px;
 
   @include mq(tablet) {
+    font-size: 14px;
     line-height: 1.21;
   }
 }
 
-.eventcards__location::before {
-  display: block;
-  content: '';
-  width: 8px;
-  height: 10px;
-  background-size: contain;
-  margin-right: 16px;
-  background-image: url('../images/vector.png');
-}
+// .eventcards__location::before {
+//   display: block;
+//   content: '';
+//   width: 8px;
+//   height: 10px;
+//   background-size: contain;
+//   margin-right: 16px;
+//   background-image: url('../images/vector.png');
+// }
+
+// .eventcards__location::before {
+//   display: block;
+//   content: url('../images/vector.png');
+//   width: 8px;
+//   height: 10px;
+//   background-size: contain;
+//   margin-right: 3px;
+//   // background-image: url('../images/vector.png');
+// }
