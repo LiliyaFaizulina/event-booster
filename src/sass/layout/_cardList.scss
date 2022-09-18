@@ -25,33 +25,38 @@
   position: relative;
   padding-top: 9px;
   padding-right: 10px;
-  width: 130px;
 
   @include mq(tablet) {
-    width: 152px;
     padding-top: 10px;
     padding-right: 11px;
   }
 
   @include mq(desktop) {
-    width: 288px;
     padding-top: 19px;
     padding-right: 21px;
   }
 }
 
-.eventcards__img {
+.thumb {
   width: 120px;
   height: 151px;
   border-radius: 50px 0px;
+
   @include mq(tablet) {
     width: 141px;
     height: 178px;
   }
+
   @include mq(desktop) {
-    width: 255px;
+    width: 267px;
     height: 337px;
   }
+}
+
+.eventcards__img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50px 0px;
 }
 
 .eventcards__decoration {
@@ -119,12 +124,11 @@
   }
 }
 
-// .eventcards__item:after {
-//   content: '';
-//   position: absolute;
-//   z-index: 10;
-//   border: 1px solid rgba(220, 86, 197, 0.3);
-//   box-sizing: border-box;
-//   border-radius: 50px 0;
-//   pointer-events: none;
-// }
+.eventcards__location::before {
+  content: '';
+  width: 8px;
+  height: 10px;
+  background-size: contain;
+  margin-right: 16px;
+  background-image: url('../images/vector.png');
+}
