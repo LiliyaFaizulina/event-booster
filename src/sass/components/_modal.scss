@@ -251,3 +251,14 @@
                 transform: scale(1.1);
             }
     }
+
+    .modal__map-point .modal__item-text {
+        transform: scale(1);
+        
+        transition: transform var(--animation);
+        
+            &:focus,
+            &:hover {
+                transform: scale(1.1);
+            }
+    }
