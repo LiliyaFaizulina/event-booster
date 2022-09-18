@@ -125,6 +125,7 @@
 }
 
 .eventcards__location::before {
+  display: block;
   content: '';
   width: 8px;
   height: 10px;
