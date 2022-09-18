@@ -4,6 +4,7 @@ import { renderEventsList } from './js/createMarkupEventsList';
 import { onEventClick } from './js/openModal';
 import { closeModal } from './js/closeModal';
 import { checkPaginationList, renderPagination } from './js/pagination';
+import { onScrollTracking } from './js/animate';
 
 //preloader
 window.onload = function () {
@@ -34,6 +35,9 @@ function onPaginationClick(e) {
     .getEvents()
     .then(response => {
       renderEventsList(response.data._embedded.events);
+      //отслеживание скролла
+      onScrollTracking();
+      // остановка спинера;
     })
     .catch(err => {
       console.log(err.message);
