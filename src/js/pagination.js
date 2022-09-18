@@ -1,12 +1,57 @@
-import { EventsAPI } from './eventsAPI';
-import { createMarkupEventsList } from './createMarkupEventsList';
+import refs from './refs';
 
-const paginationListRef = document.querySelector('.pagination__list');
-const cardListRef = document.querySelector('.eventcards__list');
+export function renderPagination(totalPages) {
+  refs.paginationList.innerHTML = createMarkupPagination(totalPages);
+}
 
-const eventsApi = new EventsAPI();
+export function checkPaginationList(e) {
+  const pagBtns = [...e.currentTarget.children];
 
-paginationListRef.addEventListener('click', onPaginationClick);
+  pagBtns
+    .find(elem => elem.classList.contains('js-current-btn'))
+    .classList.remove('js-current-btn');
+
+  const currentBtn = e.target;
+  const currentLi = currentBtn.closest('li');
+  currentLi.classList.add('js-current-btn');
+  const currentBtnText = Number(currentBtn.textContent);
+
+  if (
+    currentLi.nextElementSibling &&
+    currentLi.nextElementSibling.classList.contains('rest')
+  ) {
+    currentLi.insertAdjacentHTML('afterend', createPagElem(currentBtnText + 1));
+    refs.paginationList.firstElementChild.remove();
+
+    if (
+      currentBtnText ===
+      refs.paginationList.lastElementChild.textContent - 2
+    ) {
+      refs.paginationList.lastElementChild.previousElementSibling.remove();
+    }
+  }
+
+  if (!currentLi.previousElementSibling && currentBtnText !== 1) {
+    currentLi.insertAdjacentHTML(
+      'beforebegin',
+      createPagElem(currentBtnText - 1)
+    );
+    pagBtns[5].remove();
+
+    if (!pagBtns[pagBtns.length - 2].classList.contains('rest')) {
+      refs.paginationList.lastElementChild.insertAdjacentHTML(
+        'beforebegin',
+        `<li class="pagination__item rest">...</li>`
+      );
+    }
+  }
+}
+
+function createPagElem(num) {
+  return `<li class="pagination__item">
+            <button class="pagination__btn" type="button">${num}</button>
+          </li>`;
+}
 
 function createMarkupPagination(totalPages) {
   const markup = [
@@ -31,74 +76,4 @@ function createMarkupPagination(totalPages) {
     markup.push(createPagElem(totalPages));
   }
   return markup.join('');
-}
-
-export function renderPagination(totalPages) {
-  paginationListRef.innerHTML = createMarkupPagination(totalPages);
-}
-
-export function onPaginationClick(e) {
-  if (e.target.nodeName !== 'BUTTON') {
-    return;
-  }
-  cardListRef.innerHTML = '';
-
-  const pagBtns = [...e.currentTarget.children];
-
-  pagBtns
-    .find(elem => elem.classList.contains('js-current-btn'))
-    .classList.remove('js-current-btn');
-
-  const currentBtn = e.target;
-  const currentLi = currentBtn.closest('li');
-  currentLi.classList.add('js-current-btn');
-  const currentBtnText = Number(currentBtn.textContent);
-
-  if (
-    currentLi.nextElementSibling &&
-    currentLi.nextElementSibling.classList.contains('rest')
-  ) {
-    currentLi.insertAdjacentHTML('afterend', createPagElem(currentBtnText + 1));
-    paginationListRef.firstElementChild.remove();
-
-    if (currentBtnText === paginationListRef.lastElementChild.textContent - 2) {
-      paginationListRef.lastElementChild.previousElementSibling.remove();
-    }
-  }
-
-  if (!currentLi.previousElementSibling && currentBtnText !== 1) {
-    currentLi.insertAdjacentHTML(
-      'beforebegin',
-      createPagElem(currentBtnText - 1)
-    );
-    pagBtns[5].remove();
-
-    if (!pagBtns[pagBtns.length - 2].classList.contains('rest')) {
-      paginationListRef.lastElementChild.insertAdjacentHTML(
-        'beforebegin',
-        `<li class="pagination__item rest">...</li>`
-      );
-    }
-  }
-
-  eventsApi.setPage(currentBtnText - 1);
-
-  eventsApi
-    .getEvents()
-    .then(response => {
-      cardListRef.insertAdjacentHTML(
-        'beforeend',
-        createMarkupEventsList(response.data._embedded.events)
-      );
-    })
-    .catch(err => {
-      console.log(err.message);
-    });
-  // остановка спинера;
-}
-
-function createPagElem(num) {
-  return `<li class="pagination__item">
-            <button class="pagination__btn" type="button">${num}</button>
-          </li>`;
 }
