@@ -68,19 +68,34 @@
 
 .modal__small-pic {
     margin: auto;
-    border-radius: 100%;
+    border-radius: 50%;
     object-fit: cover;
     width: 102px;
+    height: 102px;
     margin-bottom: 20px;
 
     @include mq(tablet) {
         width: 70px;
+        height: 70px;
         margin-bottom: 40px;
     }
         @include mq(desktop) {
             width: 132px;
+            height: 132px;
             margin-bottom: 40px;
         }
+}
+
+.modal__big-pic {
+    @include mq(tablet) {
+    width: 249px;
+    height: 100%;
+    object-fit: fill; 
+    object-position: 50% 50%;
+}   
+    @include mq(desktop) {
+    width: 427px;
+}
 }
 
 .modal__list {
@@ -169,7 +184,7 @@
     
              
         border: none;
-    color: var(--main-text-color);
+        color: var(--main-text-color);
         background-color: var(--btn-bg-color);
         
         font-weight: 500;
@@ -236,5 +251,3 @@
                 transform: scale(1.1);
             }
     }
-
-    

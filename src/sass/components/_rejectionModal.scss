@@ -1,0 +1,131 @@
+.wrapper__modal {
+    margin: 0 auto;
+    background-image: url(../images/rejectionModal/rejection-large.png);
+    width: 685px;
+    height: 520px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; 
+    position: relative;
+
+    @include mq(tablet-only) {
+        background-image: url(../images/rejectionModal/rejection-medium.png);
+        width: 562px;
+        height: 370px;
+    }
+
+    @include mq(mobile-only) {
+        background-image: url(../images/rejectionModal/rejection-small.png);
+        width: 280px;
+        height: 215px;
+    }
+}
+
+.wrapper__for-text {
+    width: 500px;
+    position: absolute;
+    top: 20%;
+    right: 50%;
+    transform:translateX(50%);
+
+    
+    @include mq(tablet-only) {
+       width: 350px;
+       top: 25%;
+    }
+
+     
+    @include mq(mobile-only) {
+        width: 200px;
+        top: 25%;
+     }
+}
+
+.wrapper__text {
+    font-size: 42px;
+    font-weight: 900;
+    text-align: center;
+
+    color: var(--accent-color);
+
+    @include mq(tablet-only) {
+        font-size: 28px;
+    }
+
+    @include mq(mobile-only) {
+        font-size: 16px;
+    }
+}
+
+.wrapper__neon-title {
+    text-shadow: 0 0 1vw var(--accent-color);
+}
+
+.wrapper__neon-title {
+    animation: wrapper__neon-title 3s ease infinite;
+    -moz-animation: wrapper__neon-title 3s ease infinite;
+    -webkit-animation: wrapper__neon-title 3s ease infinite;
+}
+
+@keyframes wrapper__neon-title {
+    0%,
+    100% {
+      text-shadow: 0 0 1vw #bf5cae, 0 0 3vw #bf5cae, 0 0 10vw #bf5cae, 0 0 10vw #bf5cae, 0 0 .4vw #95628c, .5vw .5vw .1vw #9b5d90;
+      color: #ff2fdc;
+    }
+    50% {
+      text-shadow: 0 0 .5vw #721363, 0 0 1.5vw #721363, 0 0 5vw #721363, 0 0 5vw #721363, 0 0 .2vw #721363, .5vw .5vw .1vw #4e2847;
+      color: #9e2a8b;
+    }
+    }
+
+.wrapper__button {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    background-color: var(--modal-bg-color);
+
+    border: none;
+    cursor: pointer;
+
+    width: 18px;
+    height: 18px;
+
+    &::before,
+    &::after {
+        position: absolute;
+        top: -4;
+        left: 10px;
+        content: '';
+        height: 22px;
+        width: 3px;
+        background-color: var(--btn-bg-color);
+    }
+
+    &::before {
+        transform: rotate(45deg);
+    }
+
+    &::after {
+        transform: rotate(-45deg);
+    }
+
+    &:hover::before,
+    &:hover::after {
+        background-color: var(--accent-color);
+    }
+
+    @include mq(tablet) {
+        width: 25px;
+        height: 25px;
+        right: 32px;
+        top: 32px;
+
+        &::before,
+        &::after {
+            height: 32px;
+        }
+    }
+}
+
+

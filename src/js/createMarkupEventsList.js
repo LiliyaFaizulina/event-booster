@@ -1,4 +1,4 @@
-export function createMarkupEventsList({ events }) {
+export function createMarkupEventsList(events) {
   return events.reduce(
     (acc, { id, images, name, dates, _embedded: { venues } }) => {
       const {
@@ -7,15 +7,15 @@ export function createMarkupEventsList({ events }) {
       } = venues[0];
       return (
         acc +
-        `<li class="eventcards__item">
-        <a href="#" class="eventcards__link" id="${id}">
+        `<li class="eventcards__item"  id="${id}">
+        <a href="#" class="eventcards__link">
           <img
             class="eventcards__img"
             src="${images[0].url}"
             alt="${name}"
-            width="267px"
-            height="337px"
-            loading = "lazy"
+            width="267"
+            height="337"
+            loading="lazy"
           />
           <img
             class="eventcards__decoration"
@@ -25,12 +25,12 @@ export function createMarkupEventsList({ events }) {
           <div class="eventcards__content">
             <h3 class="eventcards__name">${name}</h3>
             <p class="eventcards__date">${dates.start.localDate}</p>
-            <a href="https://maps.google.com?saddr=Current+Location&daddr=${latitude},${longitude}" class="eventcards__location">
+            <a href="https://maps.google.com?saddr=Location&daddr=${latitude},${longitude}" class="eventcards__location">
               <svg class="eventcards__location-icon" width="8" height="10">
                 <use href="./images/svg/sprite.svg#ic_location"></use>
               </svg>
-              ${locationName}</a
-            >
+              ${locationName}
+            </a>
           </div>
         </a>
       </li>`

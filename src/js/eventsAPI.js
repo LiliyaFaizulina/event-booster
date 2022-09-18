@@ -4,12 +4,13 @@ export class EventsAPI {
   key = 'tIj1kC332ExvV8vs1uBAp1fasaO5ERpG';
   size = 16;
   page = 0;
+  countryCode = 'PL';
 
-  async getEvents(countryCode = 'PL', keyword) {
+  async getEvents(keyword) {
     const config = {
       params: {
         apikey: this.key,
-        countryCode,
+        countryCode: this.countryCode,
         size: this.size,
         page: this.page,
       },
@@ -30,11 +31,15 @@ export class EventsAPI {
     return await axios.get(this.BASE_URL, config);
   }
 
-  setPage() {
-    this.page = 0;
+  setPage(p) {
+    this.page = p;
   }
 
   increasePage() {
     this.page += 1;
+  }
+
+  setCountryCode(code) {
+    this.countryCode = code;
   }
 }
