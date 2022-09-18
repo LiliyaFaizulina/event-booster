@@ -41,7 +41,6 @@ function createMarkupEventsList(events) {
     ''
   );
 }
-
 export function renderEventsList(array) {
   refs.cardList.innerHTML = createMarkupEventsList(array);
 }
