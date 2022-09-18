@@ -1,4 +1,6 @@
-export function createMarkupEventsList(events) {
+import refs from './refs';
+
+function createMarkupEventsList(events) {
   return events.reduce(
     (acc, { id, images, name, dates, _embedded: { venues } }) => {
       const {
@@ -38,4 +40,8 @@ export function createMarkupEventsList(events) {
     },
     ''
   );
+}
+
+export function renderEventsList(array) {
+  refs.cardList.innerHTML = createMarkupEventsList(array);
 }
