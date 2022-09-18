@@ -13,7 +13,7 @@ function createMarkupEventsList(events) {
       } = venues[0];
       return (
         acc +
-        `<li class="eventcards__item"  id="${id}">
+        `<li class="eventcards__item js-anim"  id="${id}">
         <a href="#" class="eventcards__link">
           <img
             class="eventcards__img"
