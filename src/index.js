@@ -6,6 +6,7 @@ import { closeModal } from './js/closeModal';
 import { checkPaginationList, renderPagination } from './js/pagination';
 import { onScrollTracking } from './js/animate';
 
+//preloader
 window.onload = function () {
   document.body.classList.add('loaded_hiding');
   window.setTimeout(function () {
@@ -24,8 +25,7 @@ function onPaginationClick(e) {
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
-  refs.cardList.innerHTML = '';
-  //запуск спинера;
+  refs.eventsList.innerHTML = '';
 
   checkPaginationList(e);
 
@@ -35,6 +35,7 @@ function onPaginationClick(e) {
     .getEvents()
     .then(response => {
       renderEventsList(response.data._embedded.events);
+
       onScrollTracking(); //отслеживание скролла
       // остановка спинера;
     })
