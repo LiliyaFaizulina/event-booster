@@ -6,7 +6,6 @@ const poster = document.querySelector('.modal__big-pic');
 const eventInfo = document.querySelector('.js-info');
 const eventTimedate = document.querySelector('.js-when');
 const eventPointPlace = document.querySelector('.js-where');
-const eventPointPlaceAddress = document.querySelector('.js-where-place');
 const eventMapPoint = document.querySelector('.modal__map-point');
 const eventFace = document.querySelector('.js-who');
 const firstPriceInfo = document.querySelector('.js-first-price');
@@ -36,8 +35,7 @@ export function addToModalContent(id) {
     eventTimedate.textContent = `${dates.start.localDate} ${
       dates.start.localTime ? dates.start.localTime.slice(0, 5) : ''
     } ${dates.timezone ? dates.timezone : ''}`;
-    eventPointPlace.textContent = `${city.name}, ${country.name}, `;
-    eventPointPlaceAddress.textContent = `${address.line1}`;
+    eventPointPlace.textContent = `${city.name}, ${country.name}, ${address.line1}`;
     eventMapPoint.href = `https://www.google.com/maps/search/${location.latitude}+${location.longitude}`;
     eventFace.textContent = _embedded.attractions.map(e => e.name).join(', ');
     buyTicketBtn.forEach(btn => (btn.href = url));
