@@ -1,5 +1,9 @@
 import refs from './refs';
 
+export function renderEventsList(array) {
+  refs.eventsList.innerHTML = createMarkupEventsList(array);
+}
+
 function createMarkupEventsList(events) {
   return events.reduce(
     (acc, { id, images, name, dates, _embedded: { venues } }) => {
@@ -40,8 +44,4 @@ function createMarkupEventsList(events) {
     },
     ''
   );
-}
-
-export function renderEventsList(array) {
-  refs.cardList.innerHTML = createMarkupEventsList(array);
 }
