@@ -20,7 +20,7 @@ const moreAboutEvent = document.querySelector('.moreinfo-link');
 export function addToModalContent(id) {
   infoObj.getEvent(id).then(response => {
     console.log(response.data._embedded.events[0]);
-    const { images, name, dates, _embedded, priceRanges, url } =
+    const { images, name, info, dates, _embedded, priceRanges, url } =
       response.data._embedded.events[0];
     const { address, city, country, location } = _embedded.venues[0];
     const posterBestSize = images.filter(
@@ -31,52 +31,41 @@ export function addToModalContent(id) {
     ).url;
 
     smallPic.src = images[0].url;
-    eventInfo.textContent = name;
+    eventInfo.textContent = info ? info : name;
     eventTimedate.textContent = `${dates.start.localDate} ${
       dates.start.localTime ? dates.start.localTime.slice(0, 5) : ''
     } ${dates.timezone ? dates.timezone : ''}`;
-    eventPointPlace.textContent = `${city.name}, ${country.name}, ${address.line1}`;
+    eventPointPlace.textContent = `${city.name}, ${country.name}, ${
+      address.line1 ? address.line1 : ''
+    }`;
     eventMapPoint.href = `https://www.google.com/maps/search/${location.latitude}+${location.longitude}`;
     eventFace.textContent = _embedded.attractions.map(e => e.name).join(', ');
     buyTicketBtn.forEach(btn => (btn.href = url));
     moreAboutEvent.href = `https://www.google.com/search?q=${eventFace.textContent}+${city.name}+${dates.start.localDate}`;
 
-    shortPriceInfo();
-    optionPriceInfo();
-
-    function shortPriceInfo() {
-      if (priceRanges) {
-        for (const { type, currency, min, max } of priceRanges) {
-          if (type === 'standard' && min === max) {
-            return (firstPriceText.textContent = `${type} ${
-              min || max
-            } ${currency}`.toUpperCase());
-          } else if (type === 'standard') {
-            return (firstPriceText.textContent =
-              `${type} ${min}-${max} ${currency}`.toUpperCase());
-          }
+    if (priceRanges) {
+      priceRanges.forEach(({ type, currency, min, max }) => {
+        if (type === 'standard' && min === max) {
+          firstPriceText.textContent = `${type} ${
+            min || max
+          } ${currency}`.toUpperCase();
+        } else if (type === 'standard') {
+          firstPriceText.textContent =
+            `${type} ${min}-${max} ${currency}`.toUpperCase();
+        } else if (type === 'VIP' && min === max) {
+          secondPriceText.textContent = `${type} ${
+            min || max
+          } ${currency}`.toUpperCase();
+        } else if (type === 'VIP') {
+          firstPriceText.textContent =
+            `${type} ${min}-${max} ${currency}`.toUpperCase();
+        } else {
+          secondPriceItem.classList.add('visually-hidden');
         }
-      }
-      return (firstPriceInfo.textContent =
-        'Currently price info is absent. Click "Buy tickets" for more information');
+      });
+    } else {
+      firstPriceInfo.textContent =
+        'Currently price info is absent. Click "Buy tickets" for more information';
     }
-
-    function optionPriceInfo() {
-      if (priceRanges) {
-        for (const { type, currency, min, max } of priceRanges) {
-          if (type === 'VIP' && min === max) {
-            return (secondPriceText.textContent = `${type} ${
-              min || max
-            } ${currency}`.toUpperCase());
-          } else if (type === 'VIP') {
-            return (firstPriceText.textContent =
-              `${type} ${min}-${max} ${currency}`.toUpperCase());
-          }
-        }
-      }
-      secondPriceItem.classList.add('visually-hidden');
-    }
-
-    //infoObj.getEvents().then(r => console.log(r));
   });
 }
