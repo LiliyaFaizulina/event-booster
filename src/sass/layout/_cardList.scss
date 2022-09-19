@@ -131,14 +131,12 @@
 }
 
 .eventcards__location {
-  padding-left: 12px;
-  padding-left: 8px;
   font-weight: 600;
   font-size: 12px;
   line-height: 1.25;
   text-align: center;
   color: var(--main-text-color);
-  background-image: url('../images/cardlist/vector.png');
+
   background-repeat: no-repeat;
 
   @include mq(tablet) {
@@ -147,7 +145,10 @@
   }
 
   @include mq(desktop) {
-    padding-left: 20px;
     background-size: contain;
   }
+}
+
+.eventcards__loc-img {
+  display: inline-block;
 }
