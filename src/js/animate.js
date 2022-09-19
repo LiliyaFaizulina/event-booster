@@ -1,9 +1,9 @@
 export function onScrollTracking() {
   const animItems = document.querySelectorAll('.js-anim');
-  if (animItems.length > 0) {
+  if (animItems.length) {
     window.addEventListener('scroll', animOnScroll);
     function animOnScroll() {
-      for (let index = 0; index < animItems.length; index++) {
+      for (let index = 0; index < animItems.length; index += 1) {
         const animItem = animItems[index];
         const animItemHeight = animItem.offsetHeight;
         const animItemOffset = offset(animItem).top;

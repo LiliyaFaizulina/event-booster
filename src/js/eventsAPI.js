@@ -11,11 +11,10 @@ export class EventsAPI {
         apikey: this.key,
         size: this.size,
         page: this.page,
+        keyword,
       },
     };
-    if (keyword) {
-      config.params.keyword = keyword;
-    }
+
     return await axios.get(this.BASE_URL, config);
   }
 
@@ -25,12 +24,9 @@ export class EventsAPI {
         apikey: this.key,
         size: this.size,
         page: this.page,
-        countryCode: 'PL',
+        countryCode: code,
       },
     };
-    if (code) {
-      config.params.countryCode = code;
-    }
     return await axios.get(this.BASE_URL, config);
   }
 
