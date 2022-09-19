@@ -27,7 +27,10 @@ window.onload = function () {
   }, 500);
 };
 
-eventsAPI.getEventsByCountry().then(resp => {
+let codeCountry = '';
+let query = '';
+
+eventsAPI.getEventsByCountry('PL').then(resp => {
   const {
     _embedded: { events },
     page: { totalPages },
@@ -42,29 +45,43 @@ function onPaginationClick(e) {
     return;
   }
   refs.eventsList.innerHTML = '';
-
   checkPaginationList(e);
 
   eventsAPI.setPage(Number(e.target.textContent) - 1);
-
-  eventsAPI
-    .getEvents()
-    .then(response => {
-      renderEventsList(response.data._embedded.events);
-      //отслеживание скролла
-      onScrollTracking();
-    })
-    .catch(err => {
-      console.log(err.message);
-    });
+  if (query) {
+    eventsAPI
+      .getEvents(query)
+      .then(response => {
+        renderEventsList(response.data._embedded.events);
+        //отслеживание скролла
+        onScrollTracking();
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  } else {
+    eventsAPI
+      .getEventsByCountry(codeCountry || 'PL')
+      .then(response => {
+        renderEventsList(response.data._embedded.events);
+        //отслеживание скролла
+        onScrollTracking();
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  }
 }
 
 function searchByCountyCode(e) {
-  const countryCode = e.target.dataset.value;
-  refs.inputHidden.value = countryCode;
+  const code = e.target.dataset.value;
+  refs.inputHidden.value = code;
+  codeCountry = code;
+  query = '';
   onSearchItemClick(e);
+  eventsAPI.setPage(0);
   eventsAPI
-    .getEventsByCountry(countryCode)
+    .getEventsByCountry(codeCountry)
     .then(resp => {
       console.log(resp.data);
       if (!resp.data._embedded) {
@@ -90,7 +107,10 @@ function searchByCountyCode(e) {
 }
 
 function searchByQuery(e) {
-  const query = e.target.value;
+  const value = e.target.value;
+  query = value;
+  codeCountry = '';
+  eventsAPI.setPage(0);
   eventsAPI
     .getEvents(query)
     .then(resp => {
