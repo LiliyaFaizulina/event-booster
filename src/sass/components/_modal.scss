@@ -8,6 +8,10 @@
 
     background: var(--modal-bg-color);
 
+    transform: scale(1);
+    opacity: 1;
+    transition: transform var(--animation), opacity var(--animation);
+
     @include mq(tablet) {
         border-radius: 300px 0px;
         padding: 32px 50px 40px 87px;
