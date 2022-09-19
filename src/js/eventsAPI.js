@@ -29,7 +29,7 @@ export class EventsAPI {
       },
     };
     countryCode = code;
-    return await axios.get(this.BASE_URL, this.config);
+    return await axios.get(this.BASE_URL, config);
   }
 
   async getEvent(id) {
