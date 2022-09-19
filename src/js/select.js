@@ -8,7 +8,6 @@ export function onBtnSelect() {
 
 export function onSearchItemClick(e) {
   refs.btnSelect.textContent = e.target.textContent;
-  refs.inputHidden.value = e.target.dataset.value;
   refs.btnSelect.classList.add('search__select--selected');
   refs.searchList.classList.remove('search__list--visible');
   refs.btnSelect.classList.remove('search__select--active');

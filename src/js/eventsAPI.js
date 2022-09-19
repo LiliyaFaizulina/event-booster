@@ -4,21 +4,24 @@ export class EventsAPI {
   key = 'tIj1kC332ExvV8vs1uBAp1fasaO5ERpG';
   size = 16;
   page = 0;
-  countryCode = 'PL';
+  config = {
+    params: {
+      apikey: this.key,
+      size: this.size,
+      page: this.page,
+    },
+  };
 
   async getEvents(keyword) {
-    const config = {
-      params: {
-        apikey: this.key,
-        countryCode: this.countryCode,
-        size: this.size,
-        page: this.page,
-      },
-    };
     if (keyword) {
-      config.params.keyword = keyword;
+      this.config.params.keyword = keyword;
     }
-    return await axios.get(this.BASE_URL, config);
+    return await axios.get(this.BASE_URL, this.config);
+  }
+
+  async getEventsByCountry(code = 'PL') {
+    this.config.params.countryCode = code;
+    return await axios.get(this.BASE_URL, this.config);
   }
 
   async getEvent(id) {
