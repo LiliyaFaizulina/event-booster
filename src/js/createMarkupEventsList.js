@@ -31,10 +31,7 @@ function createMarkupEventsList(events) {
           <div class="eventcards__content">
             <h3 class="eventcards__name">${name}</h3>
             <p class="eventcards__date">${dates.start.localDate}</p>
-            <a href="https://maps.google.com?saddr=Location&daddr=${latitude},${longitude}" class="eventcards__location">
-              <svg class="eventcards__location-icon" width="8" height="10">
-                <use href="./images/svg/sprite.svg#ic_location"></use>
-              </svg>
+            <a class="eventcards__location" href="https://maps.google.com?saddr=Location&daddr=${latitude},${longitude}">
               ${locationName}
             </a>
           </div>
