@@ -1,5 +1,6 @@
 import { EventsAPI } from './eventsAPI';
 import refs from './refs';
+import sprite from '../images/svg/sprite.svg';
 
 const infoObj = new EventsAPI();
 
@@ -26,29 +27,40 @@ export function addToModalContent(id) {
     const eventFace = _embedded.attractions.map(e => e.name).join(', ');
     const moreAboutEvent = `https://www.google.com/search?q=${eventFace}+${city.name}+${dates.start.localDate}`;
 
+    const standardTicketType = 'standard';
+    const vipTicketType = 'VIP';
     let firstPriceText = '';
     let secondPriceText = '';
-    let hiddenClass = '';
+    let hiddenClass = 'visually-hidden';
+    let disabledLink = '';
 
     if (priceRanges) {
       priceRanges.forEach(({ type, currency, min, max }) => {
-        if (type === 'standard' && min === max) {
+        if (type === standardTicketType && min === max) {
           firstPriceText = `${type} ${min || max} ${currency}`.toUpperCase();
-        } else if (type === 'standard') {
+        } else if (type === standardTicketType) {
           firstPriceText = `${type} ${min}-${max} ${currency}`.toUpperCase();
-        } else if (type === 'VIP' && min === max) {
+        } else if (type === vipTicketType && min === max) {
           secondPriceText = `${type} ${min || max} ${currency}`.toUpperCase();
-        } else if (type === 'VIP') {
+          hiddenClass = '';
+        } else if (type === vipTicketType) {
           secondPriceText = `${type} ${min}-${max} ${currency}`.toUpperCase();
+          hiddenClass = '';
         } else {
-          hiddenClass = 'visually-hidden';
+          return;
+          //hiddenClass = 'visually-hidden';
         }
       });
     } else {
       firstPriceText =
         'Currently price info is absent. Click "Buy tickets" for more information';
-      hiddenClass = 'visually-hidden';
+      //hiddenClass = 'visually-hidden';
     }
+
+    if (!url) {
+      disabledLink = 'disabled-link';
+    }
+
     refs.eventContentWrapper.innerHTML = modalMarkup(
       poster,
       info,
@@ -61,7 +73,8 @@ export function addToModalContent(id) {
       url,
       secondPriceText,
       moreAboutEvent,
-      hiddenClass
+      hiddenClass,
+      disabledLink
     );
   });
 }
@@ -78,7 +91,8 @@ function modalMarkup(
   url,
   secondPriceText,
   moreAboutEvent,
-  hiddenClass
+  hiddenClass,
+  disabledLink
 ) {
   const markup = `<img src="${poster}" alt="small-pic" class="modal__small-pic">
         <div class="modal__list">
@@ -102,7 +116,7 @@ function modalMarkup(
                         <a class="modal__map-point" href="${eventMapPoint}" target="_blanc">
                             <p class="modal__item-text">
                             <svg class="modal__icon-location" width="30">
-                                <use href="./images/svg/sprite.svg#icon-location2"></use>
+                                <use href="${sprite}.#icon-location2"></use>
                             </svg><span class="js-where">${eventPointPlace}</span></p></a>                        
                     </li>
                     <li class="modal__list-info">
@@ -115,16 +129,16 @@ function modalMarkup(
                             <li class="modal__price-item">
                                 <p class="modal__item-text js-first-price">
                                         <svg class="modal__icon-code" width="30">
-                                            <use href="./images/svg/sprite.svg#ic_ticket"></use>
+                                            <use href="${sprite}.#ic_ticket"></use>
                                         </svg>
                                     <span class="js-price-text">${firstPriceText}</span>
                                 </p>
-                                <a class="modal__list-btn" href="${url}" target="_blanc">BUY TICKETS</a>
+                                <a class="modal__list-btn ${disabledLink}" href="${url}" target="_blanc">BUY TICKETS</a>
                             </li>
                             <li class="modal__price-item js-second-priceItem ${hiddenClass}">
                                 <p class="modal__item-text js-second-price">
                                     <svg class="modal__icon-code" width="30">
-                                            <use href="./images/svg/sprite.svg#ic_ticket"></use>
+                                            <use href="${sprite}.#ic_ticket"></use>
                                         </svg>
                                     <span class="js-price-text">${secondPriceText}</span>
                                 </p>
