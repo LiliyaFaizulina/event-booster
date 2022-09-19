@@ -5,10 +5,8 @@
 
 .footer {
   display: flex;
-
   justify-content: center;
   align-items: baseline;
-  background: #0d0d0d;
   @include mq(mobile) {
     flex-wrap: wrap;
   }
@@ -37,7 +35,6 @@
 
   place-items: center;
   overflow: hidden;
-  background: var(--main-bg-color);
 
   @include mq(mobile) {
     margin-top: 10px;
@@ -46,6 +43,7 @@
     margin-top: 0px;
   }
 }
+
 .footer__box::before {
   content: '';
   position: absolute;
