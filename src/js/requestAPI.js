@@ -1,9 +1,7 @@
-const formEl = document.querySelector('.search__form');
-const inputSearchEl = document.querySelector('input.search__input');
-const inputHiddenEl = document.querySelector('.option__input--hidden');
+import refs from './refs';
 
 // прослушивание формы по инпуту
-formEl.addEventListener('input', onFormEl);
+refs.searchForm.addEventListener('input', onFormEl);
 
 function onFormEl(e) {
   e.preventDefault();
@@ -41,6 +39,6 @@ liEls.forEach(liEl => {
   function onListEl() {
     const event = new Event('input');
     console.log('1');
-    formEl.dispatchEvent(event);
+    refs.searchForm.dispatchEvent(event);
   }
 });
