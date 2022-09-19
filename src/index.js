@@ -111,6 +111,7 @@ function searchByCountyCode(e) {
 
 function searchByQuery(e) {
   const value = e.target.value;
+  e.target.value = '';
   query = value;
   codeCountry = '';
   eventsAPI.setPage(0);
