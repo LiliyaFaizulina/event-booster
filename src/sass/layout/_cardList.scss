@@ -1,12 +1,15 @@
 .eventcards {
   padding-top: 56px;
+  min-height: 50px;
 
   @include mq(tablet) {
     padding-top: 80px;
+    min-height: 120px;
   }
 
   @include mq(desktop) {
     padding-top: 120px;
+    min-height: 433px;
   }
 }
 
