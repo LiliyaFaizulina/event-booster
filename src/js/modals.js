@@ -28,6 +28,7 @@ export function closeModal(e) {
     document.body.classList.remove('no-scroll');
     refs.eventModalBackdrop.classList.add('visually-hidden');
     refs.teamModalBackdrop.classList.add('visually-hidden');
+    refs.rejectModalBackdrop.classList.add('visually-hidden');
     window.removeEventListener('keydown', closeModal);
   }
 }
