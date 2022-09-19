@@ -64,7 +64,8 @@ function searchByCountyCode(e) {
   eventsAPI
     .getEventsByCountry(countryCode)
     .then(resp => {
-      if (!resp.data.events) {
+      console.log(resp.data);
+      if (!resp.data._embedded) {
         throw new Error('Sorry! Bad request');
       }
       const {
