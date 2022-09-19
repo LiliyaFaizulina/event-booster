@@ -43,12 +43,4 @@ export class EventsAPI {
   setPage(p) {
     this.page = p;
   }
-
-  increasePage() {
-    this.page += 1;
-  }
-
-  setCountryCode(code) {
-    this.countryCode = code;
-  }
 }

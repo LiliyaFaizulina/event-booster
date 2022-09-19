@@ -83,7 +83,6 @@ function searchByCountyCode(e) {
   eventsAPI
     .getEventsByCountry(codeCountry)
     .then(resp => {
-      console.log(resp.data);
       if (!resp.data._embedded) {
         throw new Error('Sorry! Bad request');
       }
@@ -97,7 +96,6 @@ function searchByCountyCode(e) {
       renderPagination(totalPages);
     })
     .catch(err => {
-      console.log(refs.rejectModalBackdrop);
       refs.eventsList.innerHTML = '';
       refs.paginationList.innerHTML = '';
       document.body.classList.add('no-scroll');
@@ -114,7 +112,6 @@ function searchByQuery(e) {
   eventsAPI
     .getEvents(query)
     .then(resp => {
-      console.log(resp.data);
       if (!resp.data._embedded) {
         throw new Error('Sorry! Bad request');
       }
@@ -128,7 +125,6 @@ function searchByQuery(e) {
       renderPagination(totalPages);
     })
     .catch(err => {
-      console.log(refs.rejectModalBackdrop);
       refs.eventsList.innerHTML = '';
       refs.paginationList.innerHTML = '';
       document.body.classList.add('no-scroll');

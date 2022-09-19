@@ -21,7 +21,7 @@
 }
 
 .backdrop.visually-hidden .modal {
-  transform: /*translate(-50%, -50%)*/ scale(0.2);
+  transform: scale(0.2);
   opacity: 0;
 }
 .no-scroll {
