@@ -20,6 +20,7 @@
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
   transition: transform var(--animation);
+  cursor: pointer;
 
   &:hover,
   &:focus {

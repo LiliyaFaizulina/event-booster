@@ -29,7 +29,7 @@ function createMarkupEventsList(events) {
             <h3 class="eventcards__name">${name}</h3>
             <p class="eventcards__date">${dates.start.localDate}</p>
             <p class="eventcards__location"><img class="eventcards__loc-img" src="https://i.ibb.co/zXQ2Gs8/Place.png" alt="Place" width="8" height="10" border="0">
-              ${locationName}
+              ${locationName || 'For more info click on event card'}
             </p>
           </div>
         </a>
