@@ -1,11 +1,17 @@
 import refs from './js/refs';
 import { EventsAPI } from './js/eventsAPI';
 import { renderEventsList } from './js/createMarkupEventsList';
-import { onEventClick } from './js/openModal';
-import { closeModal } from './js/closeModal';
+import { onTeamBtnClick, closeModal, onEventClick } from './js/modals';
 import { checkPaginationList, renderPagination } from './js/pagination';
 import { onScrollTracking } from './js/animate';
 
+const eventsAPI = new EventsAPI();
+
+refs.teamModalOpenBtn.addEventListener('click', onTeamBtnClick);
+refs.teamModalBackdrop.addEventListener('click', closeModal);
+refs.eventsList.addEventListener('click', onEventClick);
+refs.eventModalBackdrop.addEventListener('click', closeModal);
+refs.paginationList.addEventListener('click', onPaginationClick);
 //preloader
 window.onload = function () {
   document.body.classList.add('loaded_hiding');
@@ -15,11 +21,7 @@ window.onload = function () {
   }, 500);
 };
 
-const eventsAPI = new EventsAPI();
-
 renderPagination(15);
-
-refs.paginationList.addEventListener('click', onPaginationClick);
 
 function onPaginationClick(e) {
   if (e.target.nodeName !== 'BUTTON') {
@@ -37,7 +39,6 @@ function onPaginationClick(e) {
       renderEventsList(response.data._embedded.events);
       //отслеживание скролла
       onScrollTracking();
-      // остановка спинера;
     })
     .catch(err => {
       console.log(err.message);

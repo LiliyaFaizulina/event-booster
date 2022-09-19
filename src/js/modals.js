@@ -1,14 +1,7 @@
-import { addToModalContent } from './openModal';
+import { addToModalContent } from './eventContent';
 import refs from './refs';
 
-refs.teamModalOpenBtn.addEventListener('click', onTeamBtnClick);
-refs.teamModalBackdrop.addEventListener('click', closeModal);
-
-refs.eventsList.addEventListener('click', onEventClick);
-refs.eventModalBackdrop.addEventListener('click', closeModal);
-
-//! Открывает модалку карточки
-function onEventClick(e) {
+export function onEventClick(e) {
   const card = e.target.closest('li');
   if (!card) {
     return;
@@ -20,13 +13,13 @@ function onEventClick(e) {
   addToModalContent(card.attributes.id.textContent);
 }
 
-function onTeamBtnClick() {
+export function onTeamBtnClick() {
   document.body.classList.add('no-scroll');
   refs.teamModalBackdrop.classList.remove('visually-hidden');
   window.addEventListener('keydown', closeModal);
 }
 
-function closeModal(e) {
+export function closeModal(e) {
   if (
     e.target.classList.contains('backdrop') ||
     e.target.nodeName === 'BUTTON' ||

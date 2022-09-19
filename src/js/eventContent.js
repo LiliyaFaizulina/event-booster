@@ -49,7 +49,7 @@ export function addToModalContent(id) {
         'Currently price info is absent. Click "Buy tickets" for more information';
       hiddenClass = 'visually-hidden';
     }
-    document.querySelector('.js-event-modal').innerHTML = modalMarkup(
+    refs.eventContentWrapper.innerHTML = modalMarkup(
       poster,
       info,
       name,
