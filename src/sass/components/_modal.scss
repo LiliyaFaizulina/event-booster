@@ -171,23 +171,22 @@
 }
 
 .modal__icon-code {
+  display: inline-block;
   height: 16px;
-  width: 24px;
-  margin-right: 10px;
+  margin-right: 4px;
+  
   @include mq(desktop) {
     height: 17px;
-    width: 29px;
-    margin-right: 12px;
+    margin-right: 6px;
   }
 }
 
 .modal__icon-location {
+  display: inline-block;
   height: 12px;
-  width: 16px;
-
-  @include mq(desktop) {
-    height: 14px;
-    width: 20px;
+  
+  @include mq(tablet) {
+    height: 15px;
   }
 }
 
@@ -234,7 +233,7 @@
 }
 
 .moreinfo-link {
-  padding: 10px 0px;
+  padding: 10px 7px;
   margin: 0 auto;
   width: 230px;
   height: 40px;
