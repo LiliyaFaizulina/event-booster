@@ -89,6 +89,8 @@ function modalMarkup(
   hiddenClass,
   disabledLink
 ) {
+  const barcode = 'https://i.ibb.co/0GbLwtb/ticket1.png';
+  const location = 'https://i.ibb.co/8r1FNjQ/location.png';
   const markup = `<img src="${poster}" alt="small-pic" class="modal__small-pic">
         <div class="modal__list">
             <div class="modal__card-poster">
@@ -110,9 +112,8 @@ function modalMarkup(
                         <h3 class="modal__item-title">WHERE</h3>
                         <a class="modal__map-point" href="${eventMapPoint}" target="_blanc">
                             <p class="modal__item-text">
-                            <svg class="modal__icon-location" width="30">
-                                <use href="${sprite}.#icon-location2"></use>
-                            </svg><span class="js-where">${eventPointPlace}</span></p></a>                        
+                            <img class="modal__icon-location" src="${location}" alt='location-icon' width="10">
+                            <span class="js-where">${eventPointPlace}</span></p></a>                        
                     </li>
                     <li class="modal__list-info">
                         <h3 class="modal__item-title">WHO</h3>
@@ -123,18 +124,14 @@ function modalMarkup(
                         <ul class="modal__price-list">
                             <li class="modal__price-item">
                                 <p class="modal__item-text js-first-price">
-                                        <svg class="modal__icon-code" width="30">
-                                            <use href="${sprite}.#ic_ticket"></use>
-                                        </svg>
+                                        <img class="modal__icon-code" src="${barcode}" alt="barcode" width="25">
                                     <span class="js-price-text">${firstPriceText}</span>
                                 </p>
                                 <a class="modal__list-btn ${disabledLink}" href="${url}" target="_blanc">BUY TICKETS</a>
                             </li>
                             <li class="modal__price-item js-second-priceItem ${hiddenClass}">
                                 <p class="modal__item-text js-second-price">
-                                    <svg class="modal__icon-code" width="30">
-                                            <use href="${sprite}.#ic_ticket"></use>
-                                        </svg>
+                                    <img class="modal__icon-code" src="${barcode}" alt="barcode" width="25">
                                     <span class="js-price-text">${secondPriceText}</span>
                                 </p>
                                 <a class="modal__list-btn" href="${url}" target="_blanc">BUY TICKETS</a>
