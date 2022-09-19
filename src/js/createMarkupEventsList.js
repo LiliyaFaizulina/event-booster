@@ -15,19 +15,16 @@ function createMarkupEventsList(events) {
         acc +
         `<li class="eventcards__item js-anim"  id="${id}">
         <a href="#" class="eventcards__link">
-          <img
-            class="eventcards__img"
-            src="${images[0].url}"
-            alt="${name}"
-            width="267"
-            height="337"
-            loading="lazy"
-          />
-          <img
-            class="eventcards__decoration"
-            src="./images/svg/card-decoration.svg"
-            alt="card-decoration1"
-          />
+          <div class="eventcards__thumb">
+            <img
+              class="eventcards__img"
+              src="${images[0].url}"
+              alt="${name}"
+              width="267"
+              height="337"
+              loading="lazy"
+            />
+          </div>
           <div class="eventcards__content">
             <h3 class="eventcards__name">${name}</h3>
             <p class="eventcards__date">${dates.start.localDate}</p>
