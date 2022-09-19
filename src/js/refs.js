@@ -1,4 +1,6 @@
 export default {
+  rejectModalBackdrop: document.querySelector('.js-reject-backdrop'),
+  rejectCloseBtn: document.querySelector('.wrapper__button'),
   eventsList: document.querySelector('.eventcards__list'),
   paginationList: document.querySelector('.pagination__list'),
   //   for team modal
@@ -15,4 +17,5 @@ export default {
   searchItems: document.querySelectorAll('.search__option'),
   inputHidden: document.querySelector('.option__input--hidden'),
   searchForm: document.querySelector('.search__form'),
+  searchInput: document.querySelector('.js-search-input'),
 };
