@@ -45,6 +45,11 @@ function onPaginationClick(e) {
     return;
   }
   refs.eventsList.innerHTML = '';
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+
   checkPaginationList(e);
 
   eventsAPI.setPage(Number(e.target.textContent) - 1);
