@@ -1,12 +1,15 @@
 .eventcards {
   padding-top: 56px;
+  min-height: 50px;
 
   @include mq(tablet) {
     padding-top: 80px;
+    min-height: 120px;
   }
 
   @include mq(desktop) {
     padding-top: 120px;
+    min-height: 433px;
   }
 }
 
@@ -16,6 +19,7 @@
   justify-content: center;
   row-gap: 32px;
   column-gap: 20px;
+  flex-grow: 1;
 
   @include mq(tablet) {
     row-gap: 32px;
@@ -41,11 +45,16 @@
 
   @include mq(desktop) {
     padding-top: 19px;
-    padding-bottom: 10px;
     background-image: url('../images/cardlist/decoration-l.png');
   }
+}
 
-  transition: box-shadow var(--animation), transform (--animation);
+.eventcards__link {
+  display: block;
+  height: 100%;
+  border-radius: 50px 0px;
+  transition: box-shadow var(--animation), transform var(--animation);
+  padding-bottom: 10px;
 
   &:hover,
   &:focus {
@@ -123,7 +132,6 @@
 
 .eventcards__location {
   padding-left: 12px;
-  display: inline-block;
   padding-left: 8px;
   font-weight: 600;
   font-size: 12px;

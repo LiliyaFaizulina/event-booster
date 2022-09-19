@@ -7,10 +7,7 @@ export function renderEventsList(array) {
 function createMarkupEventsList(events) {
   return events.reduce(
     (acc, { id, images, name, dates, _embedded: { venues } }) => {
-      const {
-        location: { latitude, longitude },
-        name: locationName,
-      } = venues[0];
+      const { name: locationName } = venues[0];
       const poster = images.find(
         image => image.height === Math.max(...images.map(img => img.height))
       ).url;
@@ -31,9 +28,9 @@ function createMarkupEventsList(events) {
           <div class="eventcards__content">
             <h3 class="eventcards__name">${name}</h3>
             <p class="eventcards__date">${dates.start.localDate}</p>
-            <a class="eventcards__location" href="https://maps.google.com?saddr=Location&daddr=${latitude},${longitude}">
+            <p class="eventcards__location">
               ${locationName}
-            </a>
+            </p>
           </div>
         </a>
       </li>`
