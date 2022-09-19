@@ -6,7 +6,6 @@ const infoObj = new EventsAPI();
 
 export function addToModalContent(id) {
   infoObj.getEvent(id).then(response => {
-    console.log(response.data._embedded.events[0]);
     const { images, name, info, dates, _embedded, priceRanges, url } =
       response.data._embedded.events[0];
     const { address, city, country, location } = _embedded.venues[0];
@@ -46,15 +45,11 @@ export function addToModalContent(id) {
         } else if (type === vipTicketType) {
           secondPriceText = `${type} ${min}-${max} ${currency}`.toUpperCase();
           hiddenClass = '';
-        } else {
-          return;
-          //hiddenClass = 'visually-hidden';
         }
       });
     } else {
       firstPriceText =
         'Currently price info is absent. Click "Buy tickets" for more information';
-      //hiddenClass = 'visually-hidden';
     }
 
     if (!url) {
