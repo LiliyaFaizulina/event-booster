@@ -9,4 +9,10 @@ export default {
   eventModalBackdrop: document.querySelector('.js-modal-backdrop'),
   eventModalCloseBtn: document.querySelector('.close-button'),
   eventContentWrapper: document.querySelector('.js-event-modal'),
+  //search
+  btnSelect: document.querySelector('.search__select'),
+  searchList: document.querySelector('.search__list'),
+  searchItems: document.querySelectorAll('.search__option'),
+  inputHidden: document.querySelector('.option__input--hidden'),
+  searchForm: document.querySelector('.search__form'),
 };
