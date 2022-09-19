@@ -88,13 +88,14 @@
 
 .modal__big-pic {
     @include mq(tablet) {
-    width: 249px;
+    width: 100%;
+    display: block;
     height: 100%;
-    object-fit: fill; 
-    object-position: 50% 50%;
+    object-fit: cover; 
+    //object-position: 50% 50%;
 }   
     @include mq(desktop) {
-    width: 427px;
+    
 }
 }
 
@@ -109,13 +110,15 @@
 
 .modal__card-poster {
     display: none;
+    flex-shrink: 0;
 
     @include mq(tablet) {
         display: block;
-        min-width: 249px;
-    }
+        width: 249px;
+            }
          @include mq(desktop) {
-            min-width: 427px;
+            width: 427px;
+            height: 664px;
          }
 }
 
