@@ -11,6 +11,9 @@ function createMarkupEventsList(events) {
         location: { latitude, longitude },
         name: locationName,
       } = venues[0];
+      const poster = images.find(
+        image => image.height === Math.max(...images.map(img => img.height))
+      ).url;
       return (
         acc +
         `<li class="eventcards__item js-anim"  id="${id}">
@@ -18,7 +21,7 @@ function createMarkupEventsList(events) {
           <div class="eventcards__thumb">
             <img
               class="eventcards__img"
-              src="${images[0].url}"
+              src="${poster}"
               alt="${name}"
               width="267"
               height="337"
