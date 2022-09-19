@@ -4,6 +4,7 @@ import { renderEventsList } from './js/createMarkupEventsList';
 import { onTeamBtnClick, closeModal, onEventClick } from './js/modals';
 import { checkPaginationList, renderPagination } from './js/pagination';
 import { onScrollTracking } from './js/animate';
+import { onBtnSelect, onSearchItemClick, onDocumentClick } from './js/select';
 
 const eventsAPI = new EventsAPI();
 
@@ -12,6 +13,9 @@ refs.teamModalBackdrop.addEventListener('click', closeModal);
 refs.eventsList.addEventListener('click', onEventClick);
 refs.eventModalBackdrop.addEventListener('click', closeModal);
 refs.paginationList.addEventListener('click', onPaginationClick);
+refs.btnSelect.addEventListener('click', onBtnSelect);
+refs.searchList.addEventListener('click', onSearchItemClick);
+document.addEventListener('click', onDocumentClick);
 //preloader
 window.onload = function () {
   document.body.classList.add('loaded_hiding');
@@ -21,7 +25,15 @@ window.onload = function () {
   }, 500);
 };
 
-renderPagination(15);
+eventsAPI.getEvents().then(resp => {
+  const {
+    _embedded: { events },
+    page: { totalPages },
+  } = resp.data;
+  renderEventsList(events);
+  onScrollTracking();
+  renderPagination(totalPages);
+});
 
 function onPaginationClick(e) {
   if (e.target.nodeName !== 'BUTTON') {

@@ -36,7 +36,6 @@ export function checkPaginationList(e) {
       'beforebegin',
       createPagElem(currentBtnText - 1)
     );
-    pagBtns[5].remove();
 
     if (!pagBtns[pagBtns.length - 2].classList.contains('rest')) {
       refs.paginationList.lastElementChild.insertAdjacentHTML(
@@ -44,6 +43,7 @@ export function checkPaginationList(e) {
         `<li class="pagination__item rest">...</li>`
       );
     }
+    pagBtns[4].remove();
   }
 }
 
