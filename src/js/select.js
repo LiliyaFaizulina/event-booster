@@ -1,47 +1,22 @@
-const btnSelectEl = document.querySelector('.search__select');
-const searchListEl = document.querySelector('.search__list');
-const searchItemsEl = document.querySelectorAll('.search__option');
-const inputHiddenEl = document.querySelector('.option__input--hidden');
+import refs from './refs';
 
-btnSelectEl.addEventListener('click', onBtnSelect);
-
-// клик по кнопке селект
-function onBtnSelect() {
-  searchListEl.classList.toggle('search__list--visible');
-  btnSelectEl.classList.toggle('search__select--active');
+export function onBtnSelect() {
+  refs.searchList.classList.toggle('search__list--visible');
+  refs.btnSelect.classList.toggle('search__select--active');
+  document.addEventListener('keydown', onDocumentClick);
 }
 
-searchItemsEl.forEach(searchItem => {
-  searchItem.addEventListener('click', onSearchItem);
-
-  // клик по пункту со списка
-  function onSearchItem(e) {
-    e.stopPropagation();
-
-    btnSelectEl.textContent = this.textContent;
-    searchListEl.classList.remove('search__list--visible');
-    btnSelectEl.classList.remove('search__select--active');
-    btnSelectEl.classList.add('search__select--selected');
-    inputHiddenEl.value = this.dataset.value;
-  }
-});
-
-// клик за пределами списка
-document.addEventListener('click', onClickDocument);
-
-function onClickDocument(e) {
-  if (e.target !== btnSelectEl) {
-    searchListEl.classList.remove('search__list--visible');
-    btnSelectEl.classList.remove('search__select--active');
-  }
+export function onSearchItemClick(e) {
+  refs.btnSelect.textContent = e.target.textContent;
+  refs.btnSelect.classList.add('search__select--selected');
+  refs.searchList.classList.remove('search__list--visible');
+  refs.btnSelect.classList.remove('search__select--active');
+  document.removeEventListener('keydown', onDocumentClick);
 }
 
-// нажатие Esc
-document.addEventListener('keyup', onKeyUp);
-
-function onKeyUp(e) {
-  if (e.key === 'Escape') {
-    searchListEl.classList.remove('search__list--visible');
-    btnSelectEl.classList.remove('search__select--active');
+export function onDocumentClick(e) {
+  if (e.target !== refs.btnSelect || e.key === 'Escape') {
+    refs.searchList.classList.remove('search__list--visible');
+    refs.btnSelect.classList.remove('search__select--active');
   }
 }

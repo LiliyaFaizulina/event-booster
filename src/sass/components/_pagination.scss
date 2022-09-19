@@ -29,6 +29,12 @@
 }
 
 .js-current-btn .pagination__btn {
-  border: 1px solid var(--accent-color);
+  box-shadow: 0 0 10px 3px var(--accent-color);
   color: var(--accent-color);
+}
+
+.rest {
+  color: var(--main-text-color);
+  align-self: flex-end;
+  letter-spacing: 0.3em;
 }
