@@ -19,16 +19,18 @@ export class EventsAPI {
     return await axios.get(this.BASE_URL, config);
   }
 
-  async getEventsByCountry(code = 'UA') {
+  async getEventsByCountry(code) {
     const config = {
       params: {
         apikey: this.key,
         size: this.size,
         page: this.page,
-        countryCode: code,
+        countryCode: 'PL',
       },
     };
-    countryCode = code;
+    if (code) {
+      config.params.countryCode = code;
+    }
     return await axios.get(this.BASE_URL, config);
   }
 
