@@ -35,6 +35,8 @@
   right: 25px;
   top: 25px;
   border: none;
+
+  background-color: var(--modal-bg-color);
   cursor: pointer;
   &::before,
   &::after {
