@@ -6,7 +6,6 @@ export function renderEventsList(array) {
 
 function createMarkupEventsList(events) {
   return events.reduce((acc, { id, images, name, dates, _embedded }) => {
-    console.log(_embedded?.venues);
     let locationName = 'No info';
     if (_embedded?.venues) {
       locationName = _embedded.venues[0].name;

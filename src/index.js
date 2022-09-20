@@ -23,7 +23,7 @@ refs.btnSelect.addEventListener('click', onBtnSelect);
 refs.searchList.addEventListener('click', searchByCountyCode);
 refs.searchInput.addEventListener('change', searchByQuery);
 document.addEventListener('click', onDocumentClick);
-//preloader
+
 window.onload = function () {
   document.body.classList.add('loaded_hiding');
   window.setTimeout(function () {
@@ -65,9 +65,7 @@ function onPaginationClick(e) {
       renderEventsList(response.data._embedded.events);
       onScrollTracking();
     })
-    .catch(err => {
-      console.log(err.message);
-    });
+    .catch();
 }
 
 function searchByCountyCode(e) {
@@ -82,7 +80,6 @@ function searchByCountyCode(e) {
 function searchByQuery(e) {
   const value = e.target.value;
   query = value ? value[0].toUpperCase() + value.slice(1) : '';
-  console.log(query, codeCountry);
   requestAPI(query, codeCountry);
 }
 
@@ -104,8 +101,7 @@ function requestAPI(query, codeCountry) {
       onScrollTracking();
       renderPagination(totalPages);
     })
-    .catch(err => {
-      console.log(err);
+    .catch(() => {
       openRejectModal();
     });
 }
