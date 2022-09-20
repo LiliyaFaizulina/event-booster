@@ -23,7 +23,9 @@ export function addToModalContent(id) {
       address.line1 ? address.line1 : ''
     }`;
     const eventMapPoint = `https://www.google.com/maps/search/${location.latitude}+${location.longitude}`;
-    const eventFace = _embedded.attractions.map(e => e.name).join(', ');
+    const eventFace = _embedded.attractions
+      ? _embedded.attractions.map(e => e.name).join(', ')
+      : name;
     const moreAboutEvent = `https://www.google.com/search?q=${eventFace}+${city.name}+${dates.start.localDate}`;
 
     const standardTicketType = 'standard';

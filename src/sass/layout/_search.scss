@@ -73,11 +73,11 @@
 
 .in-focus:focus {
   box-shadow: 0 0 10px 3px var(--accent-color);
-  background: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .in-focus:not(:placeholder-shown) {
   box-shadow: 0 0 10px 3px var(--accent-color);
-  background: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .search__select {
