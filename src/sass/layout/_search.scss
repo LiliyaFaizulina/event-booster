@@ -127,6 +127,7 @@
 }
 
 .search__list {
+  z-index: 5;
   display: none;
   position: absolute;
   top: 40px;
@@ -140,7 +141,6 @@
 
   overflow: auto;
   width: 100%;
-  z-index: 1;
 }
 .search__list::-webkit-scrollbar {
   width: 0px;
