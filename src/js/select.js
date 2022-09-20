@@ -7,7 +7,6 @@ export function onBtnSelect() {
 }
 
 export function onSearchItemClick(e) {
-  console.log(e.target.textContent);
   refs.btnSelect.textContent = e.target.textContent;
   refs.inputHidden.value = e.target.dataset.value;
 
