@@ -16,7 +16,7 @@ refs.rejectModalBackdrop.addEventListener('click', closeModal);
 refs.paginationList.addEventListener('click', onPaginationClick);
 refs.btnSelect.addEventListener('click', onBtnSelect);
 refs.searchList.addEventListener('click', onSearchItemClick);
-refs.searchForm.addEventListener('input', searchEvent);
+refs.searchForm.addEventListener('change', searchEvent);
 document.addEventListener('click', onDocumentClick);
 //preloader
 window.onload = function () {
@@ -109,14 +109,5 @@ function searchEvent(e) {
       document.body.classList.add('no-scroll');
       refs.rejectModalBackdrop.classList.remove('visually-hidden');
       window.addEventListener('keydown', closeModal);
-      setTimeout(closeModalByTimer, 2000);
     });
-}
-
-function closeModalByTimer() {
-  document.body.classList.remove('no-scroll');
-  refs.eventModalBackdrop.classList.add('visually-hidden');
-  refs.teamModalBackdrop.classList.add('visually-hidden');
-  refs.rejectModalBackdrop.classList.add('visually-hidden');
-  window.removeEventListener('keydown', closeModal);
 }
