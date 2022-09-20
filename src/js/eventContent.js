@@ -8,7 +8,7 @@ export function addToModalContent(id) {
   infoObj.getEvent(id).then(response => {
     const { images, name, info, dates, _embedded, priceRanges, url } =
       response.data._embedded.events[0];
-    const { address, city, country, location } = _embedded.venues[0];
+
     const posterBestSize = images.filter(
       image => image.ratio === '3_2' || image.ratio === '4_3'
     );
@@ -19,14 +19,26 @@ export function addToModalContent(id) {
     const eventTimedate = `${dates.start.localDate} ${
       dates.start.localTime ? dates.start.localTime.slice(0, 5) : ''
     } ${dates.timezone ? dates.timezone : ''}`;
-    const eventPointPlace = `${city.name}, ${country.name}, ${
-      address.line1 ? address.line1 : ''
-    }`;
-    const eventMapPoint = `https://www.google.com/maps/search/${location.latitude}+${location.longitude}`;
-    const eventFace = _embedded.attractions
+    let eventPointPlace = 'No info';
+    let eventMapPoint = 'https://www.google.com/maps/';
+    let city = '';
+
+    if (_embedded?.venues) {
+      const { address, country, location } = _embedded.venues[0];
+      city = _embedded.venues[0].city;
+      eventPointPlace = `${city.name}, ${country.name}, ${
+        address.line1 ? address.line1 : ''
+      }`;
+      eventMapPoint = `https://www.google.com/maps/search/${location.latitude}+${location.longitude}`;
+    }
+
+    const eventFace = _embedded?.attractions
       ? _embedded.attractions.map(e => e.name).join(', ')
       : name;
-    const moreAboutEvent = `https://www.google.com/search?q=${eventFace}+${city.name}+${dates.start.localDate}`;
+
+    const moreAboutEvent = `https://www.google.com/search?q=${eventFace}+${
+      city ? city.name : ''
+    }+${dates.start.localDate}`;
 
     const standardTicketType = 'standard';
     const vipTicketType = 'VIP';
