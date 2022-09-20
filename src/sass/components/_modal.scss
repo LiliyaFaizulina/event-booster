@@ -174,7 +174,7 @@
   display: inline-block;
   height: 16px;
   margin-right: 4px;
-  
+
   @include mq(desktop) {
     height: 17px;
     margin-right: 6px;
@@ -184,7 +184,7 @@
 .modal__icon-location {
   display: inline-block;
   height: 12px;
-  
+
   @include mq(tablet) {
     height: 15px;
   }
@@ -194,7 +194,7 @@
   padding: 10px 19px;
   margin: 16px auto;
   width: 145px;
-  height: 40px;
+  min-height: 40px;
 
   display: block;
 
