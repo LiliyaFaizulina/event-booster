@@ -54,7 +54,7 @@ function createPagElem(num) {
 }
 
 function createMarkupPagination(totalPages) {
-  const maxPages = 60;
+  const maxPages = 50;
   const markup = [
     `<li class="pagination__item  js-current-btn">
             <button class="pagination__btn" type="button">1</button>
