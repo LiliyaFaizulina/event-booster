@@ -27,10 +27,11 @@ window.onload = function () {
   }, 500);
 };
 
+const defaultCountry = 'PL';
 let codeCountry = '';
 let query = '';
 
-eventsAPI.getEventsByCountry('PL').then(resp => {
+eventsAPI.getEventsByCountry(defaultCountry).then(resp => {
   const {
     _embedded: { events },
     page: { totalPages },
@@ -66,7 +67,7 @@ function onPaginationClick(e) {
       });
   } else {
     eventsAPI
-      .getEventsByCountry(codeCountry || 'PL')
+      .getEventsByCountry(codeCountry || defaultCountry)
       .then(response => {
         renderEventsList(response.data._embedded.events);
         //отслеживание скролла
