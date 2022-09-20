@@ -16,10 +16,7 @@
   }
 }
 
-.header__logo {
-  max-width: 100%;
-  display: block;
-
+.header__link {
   @include mq(tablet) {
     margin-right: 52px;
   }
@@ -27,6 +24,11 @@
   @include mq(desktop) {
     margin-right: 183px;
   }
+}
+
+.header__logo {
+  max-width: 100%;
+  display: block;
 }
 
 .header__logo:hover {
