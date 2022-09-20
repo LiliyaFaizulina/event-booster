@@ -31,7 +31,7 @@ const defaultCountry = 'PL';
 let codeCountry = '';
 let query = '';
 
-eventsAPI.getEventsByCountry(defaultCountry).then(resp => {
+eventsAPI.getEventsByCountry(defaultCountry, query).then(resp => {
   const {
     _embedded: { events },
     page: { totalPages },
@@ -54,40 +54,28 @@ function onPaginationClick(e) {
   checkPaginationList(e);
 
   eventsAPI.setPage(Number(e.target.textContent) - 1);
-  if (query) {
-    eventsAPI
-      .getEvents(query)
-      .then(response => {
-        renderEventsList(response.data._embedded.events);
-        //отслеживание скролла
-        onScrollTracking();
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-  } else {
-    eventsAPI
-      .getEventsByCountry(codeCountry || defaultCountry)
-      .then(response => {
-        renderEventsList(response.data._embedded.events);
-        //отслеживание скролла
-        onScrollTracking();
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-  }
+
+  eventsAPI
+    .getEvents(query, codeCountry || defaultCountry)
+    .then(response => {
+      renderEventsList(response.data._embedded.events);
+      //отслеживание скролла
+      onScrollTracking();
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
 }
 
 function searchByCountyCode(e) {
   const code = e.target.dataset.value;
   refs.inputHidden.value = code;
   codeCountry = code;
-  query = '';
+  query = refs.searchInput.value;
   onSearchItemClick(e);
   eventsAPI.setPage(0);
   eventsAPI
-    .getEventsByCountry(codeCountry)
+    .getEventsByCountry(codeCountry, query)
     .then(resp => {
       if (!resp.data._embedded) {
         throw new Error('Sorry! Bad request');
@@ -112,12 +100,10 @@ function searchByCountyCode(e) {
 
 function searchByQuery(e) {
   const value = e.target.value;
-  e.target.value = '';
   query = value;
-  codeCountry = '';
   eventsAPI.setPage(0);
   eventsAPI
-    .getEvents(query)
+    .getEvents(query, codeCountry)
     .then(resp => {
       if (!resp.data._embedded) {
         throw new Error('Sorry! Bad request');
