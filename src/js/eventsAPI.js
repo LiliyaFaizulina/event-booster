@@ -5,31 +5,18 @@ export class EventsAPI {
   size = 16;
   page = 0;
 
-  async getEvents(keyword, countryCode = '') {
-    const config = {
-      params: {
-        apikey: this.key,
-        countryCode,
-        size: this.size,
-        page: this.page,
-      },
-    };
-    if (keyword) {
-      config.params.keyword = keyword;
-    }
-    return await axios.get(this.BASE_URL, config);
-  }
-
-  async getEventsByCountry(code, keyword) {
+  async getEvents(keyword, countryCode) {
     const config = {
       params: {
         apikey: this.key,
         size: this.size,
         page: this.page,
-        countryCode: code,
         keyword,
       },
     };
+    if (countryCode) {
+      config.params.countryCode = countryCode;
+    }
     return await axios.get(this.BASE_URL, config);
   }
 

@@ -5,15 +5,16 @@ export function renderEventsList(array) {
 }
 
 function createMarkupEventsList(events) {
-  return events.reduce(
-    (acc, { id, images, name, dates, _embedded: { venues } }) => {
-      const { name: locationName } = venues[0];
-      const poster = images.find(
-        image => image.height === Math.max(...images.map(img => img.height))
-      ).url;
-      return (
-        acc +
-        `<li class="eventcards__item js-anim"  id="${id}">
+  return events.reduce((acc, { id, images, name, dates, _embedded }) => {
+    const { name: locationName } = _embedded.venues
+      ? _embedded.venues[0]
+      : 'For more info click on event card';
+    const poster = images.find(
+      image => image.height === Math.max(...images.map(img => img.height))
+    ).url;
+    return (
+      acc +
+      `<li class="eventcards__item js-anim"  id="${id}">
         <a href="#" class="eventcards__link">
           <div class="eventcards__thumb">
             <img
@@ -34,8 +35,6 @@ function createMarkupEventsList(events) {
           </div>
         </a>
       </li>`
-      );
-    },
-    ''
-  );
+    );
+  }, '');
 }
