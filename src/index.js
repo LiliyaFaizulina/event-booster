@@ -15,8 +15,8 @@ refs.eventModalBackdrop.addEventListener('click', closeModal);
 refs.rejectModalBackdrop.addEventListener('click', closeModal);
 refs.paginationList.addEventListener('click', onPaginationClick);
 refs.btnSelect.addEventListener('click', onBtnSelect);
-refs.searchList.addEventListener('click', onSearchItemClick);
-refs.searchForm.addEventListener('change', searchEvent);
+refs.searchList.addEventListener('click', searchByCountyCode);
+refs.searchInput.addEventListener('change', searchByQuery);
 document.addEventListener('click', onDocumentClick);
 //preloader
 window.onload = function () {
@@ -78,18 +78,45 @@ function onPaginationClick(e) {
   }
 }
 
-function searchEvent(e) {
-  const {
-    elements: { search, countryId },
-  } = e.currentTarget;
-
-  if (countryId.value) {
-    eventsAPI.setCountryCode(countryId.value);
-  }
-
+function searchByCountyCode(e) {
+  const code = e.target.dataset.value;
+  refs.inputHidden.value = code;
+  codeCountry = code;
+  query = '';
+  onSearchItemClick(e);
   eventsAPI.setPage(0);
   eventsAPI
-    .getEvents(search.value)
+    .getEventsByCountry(codeCountry)
+    .then(resp => {
+      if (!resp.data._embedded) {
+        throw new Error('Sorry! Bad request');
+      }
+      const {
+        _embedded: { events },
+        page: { totalPages },
+      } = resp.data;
+
+      renderEventsList(events);
+      onScrollTracking();
+      renderPagination(totalPages);
+    })
+    .catch(err => {
+      refs.eventsList.innerHTML = '';
+      refs.paginationList.innerHTML = '';
+      document.body.classList.add('no-scroll');
+      refs.rejectModalBackdrop.classList.remove('visually-hidden');
+      window.addEventListener('keydown', closeModal);
+    });
+}
+
+function searchByQuery(e) {
+  const value = e.target.value;
+  e.target.value = '';
+  query = value;
+  codeCountry = '';
+  eventsAPI.setPage(0);
+  eventsAPI
+    .getEvents(query)
     .then(resp => {
       if (!resp.data._embedded) {
         throw new Error('Sorry! Bad request');
