@@ -102,14 +102,17 @@
   content: '';
   position: absolute;
   top: 50%;
-  right: 32px;
+  right: 17px;
   transform: translateY(-50%);
 
   display: block;
   width: 12px;
   height: 12px;
-  pointer-events: none;
+  padding: 15px;
   background-image: url('../images/svg/icon-search.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
 }
 
 .input__icon--arrow::after {
