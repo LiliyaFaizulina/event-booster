@@ -1,6 +1,5 @@
 import { EventsAPI } from './eventsAPI';
 import refs from './refs';
-import sprite from '../images/svg/sprite.svg';
 
 const infoObj = new EventsAPI();
 

@@ -65,7 +65,7 @@ function createMarkupPagination(totalPages) {
     for (let i = 2; i <= totalPages; i += 1) {
       markup.push(createPagElem(i));
       if (i > 4) {
-        if (totalPages > 5) {
+        if (totalPages > 6) {
           markup.push(`<li class="pagination__item rest">...</li>`);
         } else {
           markup.push(createPagElem(totalPages));
