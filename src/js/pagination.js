@@ -54,11 +54,13 @@ function createPagElem(num) {
 }
 
 function createMarkupPagination(totalPages) {
+  const maxPages = 60;
   const markup = [
     `<li class="pagination__item  js-current-btn">
             <button class="pagination__btn" type="button">1</button>
           </li>`,
   ];
+
   if (totalPages > 1) {
     for (let i = 2; i <= totalPages; i += 1) {
       markup.push(createPagElem(i));
@@ -72,8 +74,11 @@ function createMarkupPagination(totalPages) {
       }
     }
   }
+
   if (totalPages > 6) {
-    markup.push(createPagElem(totalPages));
+    const lastPage = totalPages > maxPages ? maxPages : totalPages;
+    markup.push(createPagElem(lastPage));
   }
+
   return markup.join('');
 }

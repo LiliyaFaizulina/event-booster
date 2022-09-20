@@ -6,17 +6,20 @@ export function onEventClick(e) {
   if (!card) {
     return;
   }
-  document.body.classList.add('no-scroll');
+  addListener();
   refs.eventModalBackdrop.classList.remove('visually-hidden');
-  window.addEventListener('keydown', closeModal);
 
   addToModalContent(card.attributes.id.textContent);
 }
 
 export function onTeamBtnClick() {
-  document.body.classList.add('no-scroll');
+  addListener();
   refs.teamModalBackdrop.classList.remove('visually-hidden');
+}
+
+function addListener() {
   window.addEventListener('keydown', closeModal);
+  document.body.classList.add('no-scroll');
 }
 
 export function closeModal(e) {
@@ -31,4 +34,11 @@ export function closeModal(e) {
     refs.rejectModalBackdrop.classList.add('visually-hidden');
     window.removeEventListener('keydown', closeModal);
   }
+}
+
+export function openRejectModal() {
+  refs.eventsList.innerHTML = '';
+  refs.paginationList.innerHTML = '';
+  addListener();
+  refs.rejectModalBackdrop.classList.remove('visually-hidden');
 }

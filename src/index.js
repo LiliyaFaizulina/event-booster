@@ -1,7 +1,12 @@
 import refs from './js/refs';
 import { EventsAPI } from './js/eventsAPI';
 import { renderEventsList } from './js/createMarkupEventsList';
-import { onTeamBtnClick, closeModal, onEventClick } from './js/modals';
+import {
+  onTeamBtnClick,
+  closeModal,
+  onEventClick,
+  openRejectModal,
+} from './js/modals';
 import { checkPaginationList, renderPagination } from './js/pagination';
 import { onScrollTracking } from './js/animate';
 import { onBtnSelect, onSearchItemClick, onDocumentClick } from './js/select';
@@ -31,21 +36,15 @@ const defaultCountry = 'PL';
 let codeCountry = '';
 let query = '';
 
-eventsAPI.getEventsByCountry(defaultCountry, query).then(resp => {
-  const {
-    _embedded: { events },
-    page: { totalPages },
-  } = resp.data;
-  renderEventsList(events);
-  onScrollTracking();
-  renderPagination(totalPages);
-});
+requestAPI(query, defaultCountry);
 
 function onPaginationClick(e) {
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
+
   refs.eventsList.innerHTML = '';
+
   window.scrollTo({
     top: 0,
     behavior: 'smooth',
@@ -55,11 +54,15 @@ function onPaginationClick(e) {
 
   eventsAPI.setPage(Number(e.target.textContent) - 1);
 
+  let code = codeCountry;
+  if (!codeCountry && !query) {
+    code = defaultCountry;
+  }
+
   eventsAPI
-    .getEvents(query, codeCountry || defaultCountry)
+    .getEvents(query, code)
     .then(response => {
       renderEventsList(response.data._embedded.events);
-      //отслеживание скролла
       onScrollTracking();
     })
     .catch(err => {
@@ -73,34 +76,17 @@ function searchByCountyCode(e) {
   codeCountry = code;
   query = refs.searchInput.value;
   onSearchItemClick(e);
-  eventsAPI.setPage(0);
-  eventsAPI
-    .getEventsByCountry(codeCountry, query)
-    .then(resp => {
-      if (!resp.data._embedded) {
-        throw new Error('Sorry! Bad request');
-      }
-      const {
-        _embedded: { events },
-        page: { totalPages },
-      } = resp.data;
-
-      renderEventsList(events);
-      onScrollTracking();
-      renderPagination(totalPages);
-    })
-    .catch(err => {
-      refs.eventsList.innerHTML = '';
-      refs.paginationList.innerHTML = '';
-      document.body.classList.add('no-scroll');
-      refs.rejectModalBackdrop.classList.remove('visually-hidden');
-      window.addEventListener('keydown', closeModal);
-    });
+  requestAPI(query, codeCountry);
 }
 
 function searchByQuery(e) {
   const value = e.target.value;
-  query = value;
+  query = value ? value[0].toUpperCase() + value.slice(1) : '';
+  console.log(query, codeCountry);
+  requestAPI(query, codeCountry);
+}
+
+function requestAPI(query, codeCountry) {
   eventsAPI.setPage(0);
   eventsAPI
     .getEvents(query, codeCountry)
@@ -108,6 +94,7 @@ function searchByQuery(e) {
       if (!resp.data._embedded) {
         throw new Error('Sorry! Bad request');
       }
+
       const {
         _embedded: { events },
         page: { totalPages },
@@ -118,10 +105,7 @@ function searchByQuery(e) {
       renderPagination(totalPages);
     })
     .catch(err => {
-      refs.eventsList.innerHTML = '';
-      refs.paginationList.innerHTML = '';
-      document.body.classList.add('no-scroll');
-      refs.rejectModalBackdrop.classList.remove('visually-hidden');
-      window.addEventListener('keydown', closeModal);
+      console.log(err);
+      openRejectModal();
     });
 }
