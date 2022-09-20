@@ -83,7 +83,7 @@ function searchEvent(e) {
     elements: { search, countryId },
   } = e.currentTarget;
 
-  if (countryId.value !== '') {
+  if (countryId.value) {
     eventsAPI.setCountryCode(countryId.value);
   }
 
