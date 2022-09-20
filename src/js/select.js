@@ -7,7 +7,13 @@ export function onBtnSelect() {
 }
 
 export function onSearchItemClick(e) {
+  console.log(e.target.textContent);
   refs.btnSelect.textContent = e.target.textContent;
+  refs.inputHidden.value = e.target.dataset.value;
+
+  const event = new Event('input');
+  refs.searchForm.dispatchEvent(event);
+
   refs.btnSelect.classList.add('search__select--selected');
   refs.searchList.classList.remove('search__list--visible');
   refs.btnSelect.classList.remove('search__select--active');
