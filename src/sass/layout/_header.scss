@@ -1,18 +1,18 @@
 .header__container {
   padding-top: 20px;
-  background-image: url('../images/header-logo/logo-bg-mobile.png');
+  background-image: url('../images/header-logo/bg-mobile.png');
   background-repeat: no-repeat;
 
   @include mq(tablet) {
     display: flex;
     align-items: flex-start;
     padding-top: 25px;
-    background-image: url('../images/header-logo/logo-bg-tablet.png');
+    background-image: url('../images/header-logo/bg-tablet.png');
   }
 
   @include mq(desktop) {
     padding-top: 40px;
-    background-image: url('../images/header-logo/logo-bg-desktop.png');
+    background-image: url('../images/header-logo/bg-desktop.png');
   }
 }
 
