@@ -5,45 +5,82 @@ export function renderPagination(totalPages) {
 }
 
 export function checkPaginationList(e) {
+  const currentBtn = e.target;
+  const currentPagEl = currentBtn.closest('li');
   const pagBtns = [...e.currentTarget.children];
+  const firstPagEl = refs.paginationList.firstElementChild;
+  const lastPagEl = refs.paginationList.lastElementChild;
+  const penultPagEl = lastPagEl.previousElementSibling;
+  const nextPagEl = currentPagEl.nextElementSibling;
+  const prevPagEl = currentPagEl.previousElementSibling;
+  const currentBtnText = Number(currentBtn.textContent);
+  const firstBtnTxt = Number(firstPagEl.firstElementChild.textContent);
+  const lastBtnTxt = Number(lastPagEl.firstElementChild.textContent);
+  const restElemMarkup = `<li class="pagination__item rest">...</li>`;
+  const maxPagEl = 7;
 
   pagBtns
     .find(elem => elem.classList.contains('js-current-btn'))
     .classList.remove('js-current-btn');
+  currentPagEl.classList.add('js-current-btn');
 
-  const currentBtn = e.target;
-  const currentLi = currentBtn.closest('li');
-  currentLi.classList.add('js-current-btn');
-  const currentBtnText = Number(currentBtn.textContent);
-
-  if (
-    currentLi.nextElementSibling &&
-    currentLi.nextElementSibling.classList.contains('rest')
-  ) {
-    currentLi.insertAdjacentHTML('afterend', createPagElem(currentBtnText + 1));
-    refs.paginationList.firstElementChild.remove();
-
-    if (
-      currentBtnText ===
-      refs.paginationList.lastElementChild.textContent - 2
-    ) {
-      refs.paginationList.lastElementChild.previousElementSibling.remove();
-    }
+  if (lastBtnTxt < maxPagEl) {
+    return;
   }
 
-  if (!currentLi.previousElementSibling && currentBtnText !== 1) {
-    currentLi.insertAdjacentHTML(
-      'beforebegin',
-      createPagElem(currentBtnText - 1)
-    );
-
-    if (!pagBtns[pagBtns.length - 2].classList.contains('rest')) {
-      refs.paginationList.lastElementChild.insertAdjacentHTML(
-        'beforebegin',
-        `<li class="pagination__item rest">...</li>`
+  if (currentBtnText !== firstBtnTxt && currentBtnText !== lastBtnTxt) {
+    if (nextPagEl.classList.contains('rest')) {
+      currentPagEl.insertAdjacentHTML(
+        'afterend',
+        createPagElem(currentBtnText + 1)
       );
+      pagBtns[2].remove();
+
+      if (currentBtnText === 5) {
+        pagBtns[1].remove();
+        pagBtns[0].insertAdjacentHTML('afterend', restElemMarkup);
+      }
+
+      if (currentBtnText === lastBtnTxt - 2) {
+        pagBtns[1].insertAdjacentHTML(
+          'afterend',
+          createPagElem(lastBtnTxt - 4)
+        );
+        penultPagEl.remove();
+      }
     }
-    pagBtns[4].remove();
+
+    if (prevPagEl.classList.contains('rest')) {
+      pagBtns[4].remove();
+      currentPagEl.insertAdjacentHTML(
+        'beforebegin',
+        createPagElem(currentBtnText - 1)
+      );
+      if (currentBtnText === 3) {
+        pagBtns[1].remove();
+        penultPagEl.insertAdjacentHTML('beforebegin', createPagElem(5));
+      }
+
+      if (currentBtnText === lastBtnTxt - 4) {
+        penultPagEl.remove();
+        lastPagEl.insertAdjacentHTML('beforebegin', restElemMarkup);
+      }
+    }
+  } else if (
+    currentBtnText === firstBtnTxt &&
+    nextPagEl.classList.contains('rest')
+  ) {
+    renderPagination(lastBtnTxt);
+  } else if (
+    currentBtnText === lastBtnTxt &&
+    prevPagEl.classList.contains('rest')
+  ) {
+    const markup = [createPagElem(firstBtnTxt), restElemMarkup];
+    for (let i = lastBtnTxt - 4; i <= lastBtnTxt; i += 1) {
+      markup.push(createPagElem(i));
+    }
+    refs.paginationList.innerHTML = markup.join('');
+    refs.paginationList.lastElementChild.classList.add('js-current-btn');
   }
 }
 
@@ -56,7 +93,7 @@ function createPagElem(num) {
 function createMarkupPagination(totalPages) {
   const maxPages = 50;
   const markup = [
-    `<li class="pagination__item  js-current-btn">
+    `<li class="pagination__item js-current-btn">
             <button class="pagination__btn" type="button">1</button>
           </li>`,
   ];
