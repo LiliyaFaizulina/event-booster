@@ -8,7 +8,7 @@ function createMarkupEventsList(events) {
   return events.reduce((acc, { id, images, name, dates, _embedded }) => {
     let locationName = 'No info';
     if (_embedded?.venues) {
-      locationName = _embedded.venues[0].name;
+      locationName = _embedded.venues[0].name || _embedded.venues[0]?.city.name;
     }
 
     const poster = images.find(

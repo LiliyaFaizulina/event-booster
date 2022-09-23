@@ -39,7 +39,10 @@ let query = '';
 requestAPI(query, defaultCountry);
 
 function onPaginationClick(e) {
-  if (e.target.nodeName !== 'BUTTON') {
+  if (
+    e.target.nodeName !== 'BUTTON' ||
+    e.target.closest('li').classList.contains('js-current-btn')
+  ) {
     return;
   }
 
