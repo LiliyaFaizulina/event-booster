@@ -37,8 +37,19 @@
 }
 
 .header__logo {
-  max-width: 100%;
   display: block;
+  width: 60px;
+  height: 25px;
+
+  @include mq(tablet) {
+    width: 100px;
+    height: 29px;
+  }
+
+  @include mq(desktop) {
+    width: 136px;
+    height: 70px;
+  }
 }
 
 .header__main-title {
